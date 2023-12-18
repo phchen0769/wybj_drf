@@ -34,7 +34,7 @@ RUN  rm -r /root/.cache
 
 # copy all the configfiles
 COPY default.conf /etc/nginx/http.d/default.conf
-COPY yuejuan.ini /etc/supervisor.d/
+COPY wybj.ini /etc/supervisor.d/
 # xadmin针对python3.10的cache源文件修改
 # COPY cache.py /usr/lib/python3.10/site-packages/django/views/decorators/cache.py
 
