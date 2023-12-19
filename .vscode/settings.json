@@ -1,6 +1,6 @@
 {
     "editor.fontSize": 20,
-    "workbench.colorTheme": "Monokai",
+    "workbench.colorTheme": "Atom One Dark Theme",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },

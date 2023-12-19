@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "user",
-    "score"
+    "apps.user",
+    "apps.score"
 ]
 
 MIDDLEWARE = [
@@ -71,6 +71,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "wybj_drf.wsgi.application"
 
+# 替换系统原本的用户model
+AUTH_USER_MODEL = "user.UserProfile"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

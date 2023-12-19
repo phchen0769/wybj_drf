@@ -28,7 +28,8 @@
 				"ms-python.vscode-pylance",
 				"thebarkman.vscode-djaneiro",
 				"ms-python.black-formatter",
-				"hlrossato.vscode-drf"
+				"hlrossato.vscode-drf",
+				"akamud.vscode-theme-onedark"
 			]
 		}
 	},
