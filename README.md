@@ -10,7 +10,7 @@
 # 测试适用环境python3.10，django4.1
 
 # 运行数据库
-# docker run -d --name Mariadb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -v /Volumes/myDriver/gitHub/db:/var/lib/mysql mariadb:latest
+# docker run -d --name Mariadb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -v /Volumes/myDriver/github/db:/var/lib/mysql mariadb:latest
 
 # 运行项目
 # python manage.py runserver 

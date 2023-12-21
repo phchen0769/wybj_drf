@@ -100,8 +100,8 @@ DATABASES = {
         "NAME": "wybj_drf",  # 要连接的数据库
         "USER": "root",  # 链接数据库的用于名
         "PASSWORD": "123456",  # 链接数据库的用于名
-        "HOST": "10.165.27.210",  # mysql服务监听的ip
-        # "HOST": "192.168.12.9",
+        # "HOST": "10.165.27.210",  # mysql服务监听的ip
+        "HOST": "192.168.12.7",
         "PORT": 3306,  # mysql服务监听的端口
         "ATOMIC_REQUEST": True,  # 设置为True代表同一个http请求所对应的所有sql都放在一个事务中执行
         # (要么所有都成功，要么所有都失败)，这是全局性的配置，如果要对某个
@@ -174,7 +174,8 @@ REST_FRAMEWORK = {
 
 # simple JWT配置
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),  # Access Token的有效期
+    # "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),  # Access Token的有效期
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),  # Access Token的有效期
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Refresh Token的有效期
 }
 
