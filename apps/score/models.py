@@ -9,7 +9,7 @@ class Students(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     class Meta:
-        app_label = "papers"
+        app_label = "score"
         verbose_name = "学生"
         verbose_name_plural = "学生"
 
@@ -23,7 +23,7 @@ class Answers(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     class Meta:
-        app_label = "papers"
+        app_label = "score"
         verbose_name = "答案"
         verbose_name_plural = "答案"
 
@@ -40,7 +40,7 @@ class Questions(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     class Meta:
-        app_label = "papers"
+        app_label = "score"
         verbose_name = "题目"
         verbose_name_plural = "题目"
 
@@ -57,7 +57,7 @@ class Papers(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     class Meta:
-        app_label = "papers"
+        app_label = "score"
         verbose_name = "试卷"
         verbose_name_plural = "试卷"
 

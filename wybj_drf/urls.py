@@ -15,8 +15,47 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+# 从DRF中引入路由组件, 此组件的作用是用来替代Django原生路由
+from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
+
+# 导入simplejwt认证模块
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
+
+# 从score app中导入viewset
+from apps.score.views import (
+    StudentViewSet,
+    AnswerViewSet,
+    QuestionViewSet,
+    PaperViewSet,
+)
+
+# 配置使用DRF的路由功能
+router = DefaultRouter()
+
+# score app的url配置
+router.register("students", StudentViewSet, basename="studnets")
+router.register("answers", AnswerViewSet, basename="answers")
+router.register("questions", QuestionViewSet, basename="questions")
+router.register("papers", PaperViewSet, basename="papers")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("docs/", include_docs_urls(title="五育并举系统")),
+    # api页面的登录功能
+    path("api-auth/", include("rest_framework.urls")),
+    # api页面的根路径
+    path("api/", include(router.urls)),
+    # simplejwt 验证用户名密码，并产生token
+    path("user/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    # simplejwt 刷新token
+    path("user/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    # simplejwt 验证token
+    path("user/verify/", TokenVerifyView.as_view(), name="token_verify"),
 ]
