@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     # 下面这个app用于刷新refresh_token后，将旧的加到blacklist时使用
     "rest_framework_simplejwt.token_blacklist",
+    "django_filters",
 ]
 
 
@@ -100,8 +101,8 @@ DATABASES = {
         "NAME": "wybj_drf",  # 要连接的数据库
         "USER": "root",  # 链接数据库的用于名
         "PASSWORD": "123456",  # 链接数据库的用于名
-        # "HOST": "10.165.27.210",  # mysql服务监听的ip
-        "HOST": "192.168.12.7",
+        "HOST": "10.165.27.210",  # mysql服务监听的ip
+        # "HOST": "192.168.12.7",
         "PORT": 3306,  # mysql服务监听的端口
         "ATOMIC_REQUEST": True,  # 设置为True代表同一个http请求所对应的所有sql都放在一个事务中执行
         # (要么所有都成功，要么所有都失败)，这是全局性的配置，如果要对某个
