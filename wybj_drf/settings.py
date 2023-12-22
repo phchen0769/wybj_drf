@@ -84,6 +84,12 @@ WSGI_APPLICATION = "wybj_drf.wsgi.application"
 # 替换系统原本的用户model
 AUTH_USER_MODEL = "user.UserProfile"
 
+# 自定义用户认证
+AUTHENTICATION_BACKENDS = (
+    # 自定义认证的类的路径
+    "apps.user.views.CustomBackend",
+)
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -101,8 +107,8 @@ DATABASES = {
         "NAME": "wybj_drf",  # 要连接的数据库
         "USER": "root",  # 链接数据库的用于名
         "PASSWORD": "123456",  # 链接数据库的用于名
-        "HOST": "10.165.27.210",  # mysql服务监听的ip
-        # "HOST": "192.168.12.7",
+        # "HOST": "10.165.27.210",  # mysql服务监听的ip
+        "HOST": "192.168.12.7",
         "PORT": 3306,  # mysql服务监听的端口
         "ATOMIC_REQUEST": True,  # 设置为True代表同一个http请求所对应的所有sql都放在一个事务中执行
         # (要么所有都成功，要么所有都失败)，这是全局性的配置，如果要对某个
@@ -170,6 +176,9 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
     ),
+    # 配置默认全局分页
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10,
 }
 
 

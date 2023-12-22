@@ -13,4 +13,4 @@ class StudentsFilter(django_filters.FilterSet):
 
     class Meta:
         model = Students
-        fields = ["name", "score_min", "score_max"]
+        fields = ["score_min", "score_max"]
