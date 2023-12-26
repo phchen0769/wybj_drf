@@ -93,31 +93,31 @@ AUTHENTICATION_BACKENDS = (
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",  # 使用mysql数据库
-        "NAME": "wybj_drf",  # 要连接的数据库
-        "USER": "root",  # 链接数据库的用于名
-        "PASSWORD": "123456",  # 链接数据库的用于名
-        # "HOST": "10.165.27.210",  # mysql服务监听的ip
-        "HOST": "192.168.12.7",
-        "PORT": 3306,  # mysql服务监听的端口
-        "ATOMIC_REQUEST": True,  # 设置为True代表同一个http请求所对应的所有sql都放在一个事务中执行
-        # (要么所有都成功，要么所有都失败)，这是全局性的配置，如果要对某个
-        # http请求放水（然后自定义事务），可以用non_atomic_requests修饰器
-        "OPTIONS": {
-            "init_command": "SET storage_engine=INNODB",  # 设置创建表的存储引擎为INNODB
-        },
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",  # 使用mysql数据库
+#         "NAME": "wybj_drf",  # 要连接的数据库
+#         "USER": "root",  # 链接数据库的用于名
+#         "PASSWORD": "123456",  # 链接数据库的用于名
+#         # "HOST": "10.165.27.210",  # mysql服务监听的ip
+#         "HOST": "192.168.12.7",
+#         "PORT": 3306,  # mysql服务监听的端口
+#         "ATOMIC_REQUEST": True,  # 设置为True代表同一个http请求所对应的所有sql都放在一个事务中执行
+#         # (要么所有都成功，要么所有都失败)，这是全局性的配置，如果要对某个
+#         # http请求放水（然后自定义事务），可以用non_atomic_requests修饰器
+#         "OPTIONS": {
+#             "init_command": "SET storage_engine=INNODB",  # 设置创建表的存储引擎为INNODB
+#         },
+#     }
+# }
 
 
 # Password validation
@@ -190,6 +190,22 @@ SIMPLE_JWT = {
 }
 
 # 手机验证的正则表达式
-REGEX_MOBILE = r"^1[3456789]\d{9}$"
+REGEX_MOBILE = "^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
 
+# 邮箱验证的正则表达式
+REGEX_EMAIL = (
+    "^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$"
+)
+
+# 云片网API
 APIKEY = "73966ba57a4453fadcce63a230dc4150"
+
+
+# 邮箱验证码
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.qq.com"
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "phchen0769@foxmail.com"
+EMAIL_HOST_PASSWORD = "sdykrpblxozebfcd"  # 授权码
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

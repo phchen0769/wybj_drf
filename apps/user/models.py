@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -30,7 +31,7 @@ class UserProfile(AbstractUser):
         return self.username
 
 
-class VerifyCode(models.Model):
+class SmsVerifyCode(models.Model):
     """
     短信验证码
     """
@@ -41,6 +42,23 @@ class VerifyCode(models.Model):
 
     class Meta:
         verbose_name = "短信验证码"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.code
+
+
+class EmailVerifyCode(models.Model):
+    """
+    邮箱验证码
+    """
+
+    code = models.CharField(max_length=10, verbose_name="验证码")
+    email = models.EmailField(unique=True, max_length=100, verbose_name="邮箱")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
+
+    class Meta:
+        verbose_name = "邮箱验证码"
         verbose_name_plural = verbose_name
 
     def __str__(self):

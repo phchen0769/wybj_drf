@@ -26,10 +26,10 @@
 			"extensions": [
 				"ms-python.python",
 				"ms-python.vscode-pylance",
-				"thebarkman.vscode-djaneiro",
 				"ms-python.black-formatter",
 				"hlrossato.vscode-drf",
-				"akamud.vscode-theme-onedark"
+				"akamud.vscode-theme-onedark",
+				"thebarkman.vscode-djaneiro"
 			]
 		}
 	},

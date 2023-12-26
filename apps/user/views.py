@@ -1,9 +1,13 @@
 from django.shortcuts import render
+from django.utils import timezone
 
 # Create your views here.
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
+
 from rest_framework.mixins import CreateModelMixin
 from rest_framework import mixins
 from rest_framework import viewsets
@@ -14,15 +18,17 @@ from rest_framework import permissions
 from rest_framework import authentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
+from wybj_drf.settings import DEFAULT_FROM_EMAIL
 
-# from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-
-# from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
-
-from .serializers import SmsSerializer, UserRegSerializer, UserDetailSerializer
+from .serializers import (
+    SmsSerializer,
+    EmailSerializer,
+    EmailUserRegSerializer,
+    UserDetailSerializer,
+)
 from wybj_drf.settings import APIKEY
 from utils.yunpian import YunPian
-from .models import VerifyCode
+from .models import SmsVerifyCode, EmailVerifyCode
 
 User = get_user_model()
 
@@ -59,18 +65,6 @@ class SmsCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
 
     serializer_class = SmsSerializer
 
-    def generate_code(self):
-        """
-        生成四位数字的验证码
-        :return:
-        """
-        seeds = "1234567890"
-        random_str = []
-        for i in range(4):
-            random_str.append(choice(seeds))
-
-        return "".join(random_str)
-
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -79,7 +73,8 @@ class SmsCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
 
         yun_pian = YunPian(APIKEY)
 
-        code = self.generate_code()
+        # 生成验证码
+        code = get_random_string(length=6, allowed_chars="1234567890")
 
         sms_status = yun_pian.send_sms(code=code, mobile=mobile)
 
@@ -88,9 +83,44 @@ class SmsCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
                 {"mobile": sms_status["msg"]}, status=status.HTTP_400_BAD_REQUEST
             )
         else:
-            code_record = VerifyCode(code=code, mobile=mobile)
+            code_record = SmsVerifyCode(code=code, mobile=mobile)
             code_record.save()
             return Response({"mobile": mobile}, status=status.HTTP_201_CREATED)
+
+
+class EmailCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
+    """
+    发送邮箱验证码
+    """
+
+    serializer_class = EmailSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = EmailSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data["email"]
+
+            # 生成验证码
+            code = get_random_string(length=4, allowed_chars="1234567890")
+
+            # 创建或更新验证码实例
+            EmailVerifyCode.objects.update_or_create(
+                email=email, defaults={"code": code, "add_time": timezone.now()}
+            )
+
+            # 发送邮件
+            send_mail(
+                "Your Email Verification Code",
+                f"Your verification code is {code}.",
+                f"{DEFAULT_FROM_EMAIL}",
+                [email],
+                fail_silently=False,
+            )
+            return Response(
+                {"message": "Verification code sent successfully!"},
+                status=status.HTTP_200_OK,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserViewset(
@@ -103,7 +133,7 @@ class UserViewset(
     用户
     """
 
-    serializer_class = UserRegSerializer
+    serializer_class = EmailUserRegSerializer
     queryset = User.objects.all()
     authentication_classes = (
         JWTAuthentication,
@@ -114,11 +144,12 @@ class UserViewset(
         if self.action == "retrieve":
             return UserDetailSerializer
         elif self.action == "create":
-            return UserRegSerializer
+            return EmailUserRegSerializer
 
         return UserDetailSerializer
 
     # permission_classes = (permissions.IsAuthenticated, )
+
     def get_permissions(self):
         if self.action == "retrieve":
             return [permissions.IsAuthenticated()]
@@ -128,8 +159,10 @@ class UserViewset(
         return []
 
     def create(self, request, *args, **kwargs):
+        # 取出json数据初始化到serializer中
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        # 调用serializer保存方法
         user = self.perform_create(serializer)
 
         # re_dict = serializer.data
@@ -137,11 +170,13 @@ class UserViewset(
         # re_dict["token"] = jwt_encode_handler(payload)
         # re_dict["name"] = user.name if user.name else user.username
 
+        # 向前端返回refresh token、access token 以及serializer中的对象
         refresh = RefreshToken.for_user(user)
         re_dict = serializer.data
         re_dict["refresh"] = str(refresh)
         re_dict["access"] = str(refresh.access_token)
-        re_dict["name"] = user.name if user.name else user.username
+        # re_dict["username"] = user.username if user.name else user.username
+        re_dict["username"] = user.username
 
         headers = self.get_success_headers(serializer.data)
         return Response(re_dict, status=status.HTTP_201_CREATED, headers=headers)
@@ -149,5 +184,6 @@ class UserViewset(
     def get_object(self):
         return self.request.user
 
+    # 保存serializer到数据库中
     def perform_create(self, serializer):
         return serializer.save()
