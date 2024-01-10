@@ -29,7 +29,10 @@
 				"ms-python.black-formatter",
 				"hlrossato.vscode-drf",
 				"akamud.vscode-theme-onedark",
-				"thebarkman.vscode-djaneiro"
+				"thebarkman.vscode-djaneiro",
+				"GitHub.copilot",
+				"BenjaminBenais.copilot-theme",
+				"GitHub.copilot-chat"
 			]
 		}
 	},
