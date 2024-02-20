@@ -166,7 +166,7 @@ REST_FRAMEWORK = {
     # 配置restframework的权限验证为
     "DEFAULT_PERMISSION_CLASSES": (
         # 认证用户可读可写
-        # "rest_framework.permissions.IsAuthenticated",
+        "rest_framework.permissions.IsAuthenticated",
         # 认证用户可读可写，非认证用户则只能GET,HEAD,OPTIONS。
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ),
@@ -180,7 +180,6 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
 }
-
 
 # simple JWT配置
 SIMPLE_JWT = {
@@ -209,3 +208,22 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "phchen0769@foxmail.com"
 EMAIL_HOST_PASSWORD = "sdykrpblxozebfcd"  # 授权码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# 自定义权限
+PERMISSIONS = {
+    "admin":{
+        # url为：/students，get方法获取列表，post方法创建
+        "students-list":["GET","POST"],
+        # url为：/students/1/， get方法获取1号，delete方法删除1号,patch部分更新,put完整更新
+        "students-detail":["GET","PATCH","DELETE","PUT"]
+    },
+    "user":{
+        "students-detail":["GET","PATCH","PUT"]
+    },
+    "manager":{
+        "students-list":["GET","POST"],
+        "students-detail":["GET","PATCH","DELETE","PUT"]
+    }
+}
+

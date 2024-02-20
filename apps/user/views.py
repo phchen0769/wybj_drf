@@ -25,9 +25,16 @@ from .serializers import (
     EmailSerializer,
     EmailUserRegSerializer,
     UserDetailSerializer,
+    PermissionSerializer,
+    GroupSerializer
 )
 from wybj_drf.settings import APIKEY
 from utils.yunpian import YunPian
+
+# 导入django自定义permission和group
+from django.contrib.auth.models import Permission, Group
+
+# 导入自定义model
 from .models import SmsVerifyCode, EmailVerifyCode
 
 User = get_user_model()
@@ -140,6 +147,7 @@ class UserViewset(
         authentication.SessionAuthentication,
     )
 
+    # get方法的序列化器
     def get_serializer_class(self):
         if self.action == "retrieve":
             return UserDetailSerializer
@@ -165,11 +173,6 @@ class UserViewset(
         # 调用serializer保存方法
         user = self.perform_create(serializer)
 
-        # re_dict = serializer.data
-        # payload = jwt_payload_handler(user)
-        # re_dict["token"] = jwt_encode_handler(payload)
-        # re_dict["name"] = user.name if user.name else user.username
-
         # 向前端返回refresh token、access token 以及serializer中的对象
         refresh = RefreshToken.for_user(user)
         re_dict = serializer.data
@@ -187,3 +190,19 @@ class UserViewset(
     # 保存serializer到数据库中
     def perform_create(self, serializer):
         return serializer.save()
+
+
+class PermissionViewSet(viewsets.ModelViewSet):
+    """
+    权限类
+    """
+    queryset = Permission.objects.all()
+    serializer_class = PermissionSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    组
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer

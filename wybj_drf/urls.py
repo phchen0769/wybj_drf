@@ -37,13 +37,13 @@ from apps.score.views import (
 )
 
 # 从user app中导入viewset
-from apps.user.views import UserViewset, SmsCodeViewset, EmailCodeViewset
+from apps.user.views import UserViewset, SmsCodeViewset, EmailCodeViewset, PermissionViewSet,GroupViewSet
 
 # 配置使用DRF的路由功能
 router = DefaultRouter()
 
 # score app的url配置
-router.register("students", StudentViewSet, basename="studnets")
+router.register("students", StudentViewSet, basename="students")
 router.register("answers", AnswerViewSet, basename="answers")
 router.register("questions", QuestionViewSet, basename="questions")
 router.register("papers", PaperViewSet, basename="papers")
@@ -52,6 +52,9 @@ router.register("papers", PaperViewSet, basename="papers")
 router.register("users", UserViewset, basename="users")
 router.register("sms", SmsCodeViewset, basename="sms")
 router.register("email", EmailCodeViewset, basename="email")
+router.register("permission", PermissionViewSet,basename="permission")
+router.register("group", GroupViewSet,basename="group")
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("docs/", include_docs_urls(title="五育并举系统")),

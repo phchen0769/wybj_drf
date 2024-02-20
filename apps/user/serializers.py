@@ -7,6 +7,9 @@ from datetime import datetime
 from datetime import timedelta
 from rest_framework.validators import UniqueValidator
 
+# 导入系统自带的权限类以及组
+from django.contrib.auth.models import Group, Permission
+
 from .models import SmsVerifyCode, EmailVerifyCode
 
 from wybj_drf.settings import REGEX_MOBILE, REGEX_EMAIL, TIME_ZONE
@@ -68,7 +71,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("name", "gender", "birthday", "email", "mobile")
+        fields = ("username", "gender", "birthday", "email", "mobile")
 
 
 class UserRegSerializer(serializers.ModelSerializer):
@@ -95,7 +98,9 @@ class UserRegSerializer(serializers.ModelSerializer):
         help_text="用户名",
         required=True,
         allow_blank=False,
-        validators=[UniqueValidator(queryset=User.objects.all(), message="用户已经存在")],
+        validators=[
+            UniqueValidator(queryset=User.objects.all(), message="用户已经存在")
+        ],
     )
 
     password = serializers.CharField(
@@ -168,7 +173,9 @@ class EmailUserRegSerializer(serializers.ModelSerializer):
         help_text="用户名",
         required=True,
         allow_blank=False,
-        validators=[UniqueValidator(queryset=User.objects.all(), message="用户已经存在")],
+        validators=[
+            UniqueValidator(queryset=User.objects.all(), message="用户已经存在")
+        ],
     )
 
     password = serializers.CharField(
@@ -214,3 +221,25 @@ class EmailUserRegSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("username", "code", "email", "password")
+
+
+class PermissionSerializer(serializers.ModelSerializer):
+    """
+    用户权限序列化类
+    """
+
+    class Meta:
+        model = Permission
+        fields = "__all__"
+
+
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    """
+    组序列化类
+    """
+
+    class Meta:
+        model = Group
+        fields = "__all__"

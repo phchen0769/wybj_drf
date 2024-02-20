@@ -19,6 +19,10 @@ from .filters import StudentsFilter
 # 导入drf过滤器，主要用于实现模糊搜索以及排序
 from rest_framework import filters
 
+from rest_framework import authentication
+
+from utils import permissions2
+
 
 class AnswerViewSet(viewsets.ModelViewSet):
     queryset = Answers.objects.all()
@@ -29,7 +33,11 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset = Students.objects.all()
     serializer_class = StudentsSerializer
     # 需要验证的接口需要设置验证类
-    # authentication_classes = (JWTAuthentication,)
+    authentication_classes = [JWTAuthentication,
+        authentication.SessionAuthentication,]
+
+    # 权限类
+    permission_classes = [permissions2.MinePermission]
 
     # 过滤器、搜索框、排序
     filter_backends = [

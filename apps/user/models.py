@@ -23,6 +23,8 @@ class UserProfile(AbstractUser):
     )
     email = models.CharField(max_length=100, null=True, blank=True, verbose_name="邮箱")
 
+    role = models.CharField(max_length=30, null=True, blank=True, unique=True, verbose_name="角色")
+
     class Meta:
         verbose_name = "用户"
         verbose_name_plural = verbose_name
