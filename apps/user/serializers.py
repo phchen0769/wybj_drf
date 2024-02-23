@@ -7,10 +7,7 @@ from datetime import datetime
 from datetime import timedelta
 from rest_framework.validators import UniqueValidator
 
-# 导入系统自带的权限类以及组
-from django.contrib.auth.models import Group, Permission
-
-from .models import SmsVerifyCode, EmailVerifyCode
+from .models import SmsVerifyCode, EmailVerifyCode, Role, Permission
 
 from wybj_drf.settings import REGEX_MOBILE, REGEX_EMAIL, TIME_ZONE
 
@@ -225,7 +222,7 @@ class EmailUserRegSerializer(serializers.ModelSerializer):
 
 class PermissionSerializer(serializers.ModelSerializer):
     """
-    用户权限序列化类
+    权限序列化类
     """
 
     class Meta:
@@ -233,13 +230,21 @@ class PermissionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-
-
-class GroupSerializer(serializers.ModelSerializer):
+class RoleSerializer(serializers.ModelSerializer):
     """
-    组序列化类
+    角色序列化类
     """
 
     class Meta:
-        model = Group
+        model = Role
         fields = "__all__"
+
+
+# class GroupSerializer(serializers.ModelSerializer):
+#     """
+#     组序列化类
+#     """
+
+#     class Meta:
+#         model = Group
+#         fields = "__all__"

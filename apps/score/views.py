@@ -21,7 +21,7 @@ from rest_framework import filters
 
 from rest_framework import authentication
 
-from utils import permissions2
+from utils import permission
 
 
 class AnswerViewSet(viewsets.ModelViewSet):
@@ -33,11 +33,13 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset = Students.objects.all()
     serializer_class = StudentsSerializer
     # 需要验证的接口需要设置验证类
-    authentication_classes = [JWTAuthentication,
-        authentication.SessionAuthentication,]
+    authentication_classes = [
+        JWTAuthentication,
+        authentication.SessionAuthentication,
+    ]
 
     # 权限类
-    permission_classes = [permissions2.MinePermission]
+    permission_classes = [permission.MinePermission]
 
     # 过滤器、搜索框、排序
     filter_backends = [

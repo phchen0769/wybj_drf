@@ -26,16 +26,14 @@ from .serializers import (
     EmailUserRegSerializer,
     UserDetailSerializer,
     PermissionSerializer,
-    GroupSerializer
+    RoleSerializer,
 )
 from wybj_drf.settings import APIKEY
 from utils.yunpian import YunPian
 
-# 导入django自定义permission和group
-from django.contrib.auth.models import Permission, Group
 
 # 导入自定义model
-from .models import SmsVerifyCode, EmailVerifyCode
+from .models import SmsVerifyCode, EmailVerifyCode, Permission, Role
 
 User = get_user_model()
 
@@ -156,7 +154,7 @@ class UserViewset(
 
         return UserDetailSerializer
 
-    # permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_permissions(self):
         if self.action == "retrieve":
@@ -194,15 +192,17 @@ class UserViewset(
 
 class PermissionViewSet(viewsets.ModelViewSet):
     """
-    权限类
+    权限
     """
+
     queryset = Permission.objects.all()
     serializer_class = PermissionSerializer
 
 
-class GroupViewSet(viewsets.ModelViewSet):
+class RoleViewSet(viewsets.ModelViewSet):
     """
-    组
+    角色
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer

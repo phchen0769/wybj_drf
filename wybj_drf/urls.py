@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 
@@ -37,7 +38,13 @@ from apps.score.views import (
 )
 
 # 从user app中导入viewset
-from apps.user.views import UserViewset, SmsCodeViewset, EmailCodeViewset, PermissionViewSet,GroupViewSet
+from apps.user.views import (
+    UserViewset,
+    SmsCodeViewset,
+    EmailCodeViewset,
+    PermissionViewSet,
+    RoleViewSet,
+)
 
 # 配置使用DRF的路由功能
 router = DefaultRouter()
@@ -52,11 +59,12 @@ router.register("papers", PaperViewSet, basename="papers")
 router.register("users", UserViewset, basename="users")
 router.register("sms", SmsCodeViewset, basename="sms")
 router.register("email", EmailCodeViewset, basename="email")
-router.register("permission", PermissionViewSet,basename="permission")
-router.register("group", GroupViewSet,basename="group")
+router.register("permission", PermissionViewSet, basename="permission")
+router.register("role", RoleViewSet, basename="role")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # api文档功能
     path("docs/", include_docs_urls(title="五育并举系统")),
     # api页面的登录功能
     path("api-auth/", include("rest_framework.urls")),

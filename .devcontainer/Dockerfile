@@ -5,10 +5,6 @@ LABEL MAINTAINER = "Fedorov"
 # 替换apk使用的源
 COPY repositories /etc/apk/repositories
 COPY requirements.txt /root/requirements.txt
-# 设置时区
-# COPY Shanghai /etc/localtime
-
-# RUN echo 'Asia/Shanghai' >/etc/timezone
 
 RUN echo "export TZ='CST-8'" > /etc/profile
 
