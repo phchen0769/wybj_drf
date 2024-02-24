@@ -31,9 +31,12 @@ RUN apk add python3 \
 RUN pip3 install --no-cache-dir -r /root/requirements.txt
 
 # 添加/root/.local/bin目录到环境变量
-ENV PATH="/root/.local/bin:${PATH}"
+# ENV PATH="/root/.local/bin:${PATH}"
+# 设置环境变量
+ENV DJANGO_SETTINGS_MODULE=wybj_drf.settings
+ENV PYTHONPATH=/workspaces/wybj_drf:$PYTHONPATH
 
-RUN  rm -r /root/.cache
+# RUN  rm -r /root/.cache
 
 # copy all the configfiles
 COPY default.conf /etc/nginx/http.d/default.conf

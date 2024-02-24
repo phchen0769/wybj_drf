@@ -10,27 +10,23 @@ class Menu(models.Model):
     菜单
     """
 
-    # MENU_TYPE = (
-    #     (1, "一级菜单"),
-    #     (2, "二级菜单")
-    # )
-
     name = models.CharField(
         default="", max_length=30, verbose_name="菜单名", help_text="菜单名"
     )
-    # menu_type = models.IntegerField(choices=MENU_TYPE, verbose_name="菜单级别", help_text="菜单级别")
-    parent_menu = models.ForeignKey(
+    icon = models.CharField(max_length=50, verbose_name="图标", help_text="图标")
+
+    path = models.CharField(
+        default="", max_length=50, verbose_name="路径", help_text="路径"
+    )
+
+    sub_menu = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name="父类菜单",
-        help_text="父菜单",
-        related_name="sub_menu",
+        verbose_name="上级菜单",
+        help_text="上级菜单",
     )
-    icon = models.CharField(max_length=50, verbose_name="图标")
-    # is_menu = models.BooleanField(default=False, verbose_name="是否导航", help_text="是否导航")
-    url_name = models.CharField(default="", max_length=50, verbose_name="图标")
 
     class Meta:
         verbose_name = "菜单"
@@ -45,7 +41,14 @@ class Permission(models.Model):
     权限
     """
 
-    METHOD_TYPE = ((1, "GET"), (2, "POST"), (3, "DELETE"), (4, "PUT"), (5, "PATCH"))
+    METHOD_TYPE = (
+        (1, "GET"),
+        (2, "POST"),
+        (3, "DELETE"),
+        (4, "PUT"),
+        (5, "PATCH"),
+        (6, "OPTIONS"),
+    )
     # URL别名
     name = models.CharField(
         default="", max_length=30, verbose_name="权限名称", help_text="权限名称"

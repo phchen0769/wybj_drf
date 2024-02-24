@@ -33,6 +33,16 @@ class MinePermission(BasePermission):
         """
         Return `True` if permission is granted, `False` otherwise.
         """
+
+        METHOD_TYPE = {
+            "GET": 1,
+            "POST": 2,
+            "DELETE": 3,
+            "PUT": 4,
+            "PATCH": 5,
+            "OPTIONS": 6,
+        }
+
         # 1、创建权限字典，以获取当前用户所有权限
         permission_dict = {}
 
@@ -63,12 +73,14 @@ class MinePermission(BasePermission):
                 else:
                     permission_dict[permission.name] = list(method_list)
 
-        # print(permission_dict)
+        print(permission_dict)
 
         # 2.当前用户正在访问的URL和方式
         print(request.resolver_match.url_name, request.method)
         url_name = request.resolver_match.url_name
-        method = request.method
+        method = METHOD_TYPE.get(request.method)
+
+        # print(url_name, method)
 
         # 3.权限判断
         method_list = permission_dict.get(url_name)

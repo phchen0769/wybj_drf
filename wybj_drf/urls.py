@@ -59,8 +59,8 @@ router.register("papers", PaperViewSet, basename="papers")
 router.register("users", UserViewset, basename="users")
 router.register("sms", SmsCodeViewset, basename="sms")
 router.register("email", EmailCodeViewset, basename="email")
-router.register("permission", PermissionViewSet, basename="permission")
-router.register("role", RoleViewSet, basename="role")
+router.register("permissions", PermissionViewSet, basename="permissions")
+router.register("roles", RoleViewSet, basename="roles")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

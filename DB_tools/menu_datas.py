@@ -1,7 +1,107 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-row_data = [
+menu_datas = [
+    {
+        "name": "业务管理",
+        "icon": "el-icon-setting",
+        "path": "",
+        "sub_menu": None,
+    },
+    {
+        "name": "系统管理",
+        "icon": "el-icon-setting",
+        "path": "",
+        "sub_menu": None,
+    },
+    {
+        "name": "权限管理",
+        "icon": "el-icon-setting",
+        "path": "",
+        "sub_menu": None,
+    },
+    {
+        "name": "其他管理",
+        "icon": "el-icon-setting",
+        "path": "",
+        "sub_menu": None,
+    },
+    {
+        "name": "学生",
+        "icon": "el-icon-setting",
+        "path": "/students/",
+        "sub_menu": 1,
+    },
+    {
+        "name": "答案",
+        "icon": "el-icon-setting",
+        "path": "/answers/",
+        "sub_menu": 1,
+    },
+    {
+        "name": "题目",
+        "icon": "el-icon-setting",
+        "path": "/questions/",
+        "sub_menu": 1,
+    },
+    {
+        "name": "试卷",
+        "icon": "el-icon-setting",
+        "path": "/papers/",
+        "sub_menu": 1,
+    },
+    {
+        "name": "用户",
+        "icon": "el-icon-setting",
+        "path": "/users/",
+        "sub_menu": 2,
+    },
+    {"name": "短信", "icon": "el-icon-setting", "path": "/sms/", "sub_menu": 2},
+    {
+        "name": "邮箱",
+        "icon": "el-icon-setting",
+        "path": "/email",
+        "sub_menu": 2,
+    },
+    {
+        "name": "权限",
+        "icon": "el-icon-setting",
+        "path": "/premissions/",
+        "sub_menu": 3,
+    },
+    {
+        "name": "角色",
+        "icon": "el-icon-setting",
+        "path": "/roles/",
+        "sub_menu": 3,
+    },
+    {
+        "name": "用户组",
+        "icon": "el-icon-setting",
+        "path": "/system",
+        "sub_menu": 3,
+    },
+    {
+        "name": "api",
+        "icon": "el-icon-setting",
+        "path": "/api-index/",
+        "sub_menu": 4,
+    },
+    {
+        "name": "文档页",
+        "icon": "el-icon-setting",
+        "path": "/docs-index/",
+        "sub_menu": 4,
+    },
+    {
+        "name": "token",
+        "icon": "el-icon-setting",
+        "path": "/tokens/",
+        "sub_menu": 4,
+    },
+]
+
+row_datas = [
     {
         "sub_categorys": [
             {

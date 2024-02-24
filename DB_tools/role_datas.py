@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+role_datas = [
+    {"name": "admin", "role_type": 1},
+    {"name": "teacher", "role_type": 2},
+    {"name": "student", "role_type": 3},
+]

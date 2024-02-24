@@ -19,7 +19,7 @@
             "env": {
                 "PYTHONPATH": "${workspaceRoot}"
             },
-            "envFile": "${workspaceFolder}/.env"
+            // "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
