@@ -7,7 +7,7 @@ COPY repositories /etc/apk/repositories
 COPY requirements.txt /root/requirements.txt
 
 # 设定容器时间
-RUN echo "export TZ='CST-8'" > /etc/profile
+RUN echo "export TZ='UTC'" > /etc/profile
 
 # Install required packages and remove the apt packages cache when done.
 # RUN apk update 

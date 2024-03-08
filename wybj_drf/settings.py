@@ -213,3 +213,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "phchen0769@foxmail.com"
 EMAIL_HOST_PASSWORD = "sdykrpblxozebfcd"  # 授权码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# 禁用URL后面自动加斜杠
+APPEND_SLASH = False

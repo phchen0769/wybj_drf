@@ -15,12 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
 from django.urls import path, include
 
 # 从DRF中引入路由组件, 此组件的作用是用来替代Django原生路由
 from rest_framework.documentation import include_docs_urls
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter, SimpleRouter
 
 # 导入自定义token认证模块
 from utils.mytoken import MyTokenObtainPairView
@@ -50,7 +49,9 @@ from apps.user.views import (
 )
 
 # 配置使用DRF的路由功能
-router = DefaultRouter()
+# router = DefaultRouter()
+# simple router 不会自动添加末尾的斜杠
+router = SimpleRouter(trailing_slash=False)
 
 # score app的url配置
 router.register("students", StudentViewSet, basename="students")
@@ -66,18 +67,17 @@ router.register("permissions", PermissionViewSet, basename="permissions")
 router.register("roles", RoleViewSet, basename="roles")
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     # api文档功能
-    path("docs/", include_docs_urls(title="五育并举系统")),
+    path("docs", include_docs_urls(title="五育并举系统")),
     # api页面的登录功能
-    path("api-auth/", include("rest_framework.urls")),
+    path("api-auth", include("rest_framework.urls")),
     # api页面的根路径
     path("api/", include(router.urls)),
     # simplejwt 验证用户名密码，并产生token
-    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/login", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     # path("login/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     # simplejwt 刷新token
-    path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("refresh", TokenRefreshView.as_view(), name="token_refresh"),
     # simplejwt 验证token
-    path("verify/", TokenVerifyView.as_view(), name="token_verify"),
+    path("verify", TokenVerifyView.as_view(), name="token_verify"),
 ]
