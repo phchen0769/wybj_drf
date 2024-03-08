@@ -22,6 +22,9 @@ from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 
+# 导入自定义token认证模块
+from utils.mytoken import MyTokenObtainPairView
+
 # 导入simplejwt认证模块
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -72,6 +75,7 @@ urlpatterns = [
     path("api/", include(router.urls)),
     # simplejwt 验证用户名密码，并产生token
     path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    # path("login/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     # simplejwt 刷新token
     path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # simplejwt 验证token
