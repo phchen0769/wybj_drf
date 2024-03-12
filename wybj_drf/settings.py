@@ -172,7 +172,7 @@ REST_FRAMEWORK = {
         # 登录验证
         "rest_framework.permissions.IsAuthenticated",
         # 自定义认证权限类
-        "utils.permission.MinePermission",
+        "utils.permission.CustomPermission",
     ),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         # 增加simplejwt认证方式
@@ -184,6 +184,10 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "utils.pagination.GlobalPagination",
     # DRF-API文档
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    # 自定义渲染器
+    "DEFAULT_RENDERER_CLASSES": ["utils.renderer.CustomJSONRenderer"],
+    # 自定义异常
+    # "EXCEPTION_HANDLER": "utils.custom_exception.custom_exception_handler",
 }
 
 # simple JWT配置

@@ -24,7 +24,7 @@ from rest_framework import exceptions
 #         )
 
 
-class MinePermission(BasePermission):
+class CustomPermission(BasePermission):
     """
     自定义权限类
     """

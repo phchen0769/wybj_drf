@@ -17,6 +17,7 @@ from random import choice
 from rest_framework import permissions
 from rest_framework import authentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from wybj_drf.settings import DEFAULT_FROM_EMAIL
 
@@ -30,6 +31,7 @@ from .serializers import (
 )
 from wybj_drf.settings import APIKEY
 from utils.yunpian import YunPian
+from utils.renderer import CustomJSONRenderer
 
 
 # 导入自定义model

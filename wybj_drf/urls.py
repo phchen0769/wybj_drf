@@ -46,6 +46,7 @@ from apps.user.views import (
     EmailCodeViewset,
     PermissionViewSet,
     RoleViewSet,
+    # CustomTokenObtainPairView,
 )
 
 # 配置使用DRF的路由功能

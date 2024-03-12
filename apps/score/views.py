@@ -21,7 +21,8 @@ from rest_framework import filters
 
 from rest_framework import authentication
 
-from utils import permission
+from utils.permission import CustomPermission
+from utils.renderer import CustomJSONRenderer
 
 
 class AnswerViewSet(viewsets.ModelViewSet):
@@ -32,6 +33,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Students.objects.all()
     serializer_class = StudentsSerializer
+
     # 需要验证的接口需要设置验证类
     authentication_classes = [
         JWTAuthentication,
@@ -39,7 +41,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     ]
 
     # 权限类
-    permission_classes = [permission.MinePermission]
+    permission_classes = [CustomPermission]
 
     # 过滤器、搜索框、排序
     filter_backends = [
