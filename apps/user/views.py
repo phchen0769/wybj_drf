@@ -21,6 +21,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from wybj_drf.settings import DEFAULT_FROM_EMAIL
 
+from rest_framework.decorators import action
+
 from .serializers import (
     SmsSerializer,
     EmailSerializer,
@@ -130,6 +132,7 @@ class EmailCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# 管理员接口
 class UserViewset(
     CreateModelMixin,
     mixins.UpdateModelMixin,
@@ -158,6 +161,7 @@ class UserViewset(
 
     permission_classes = (permissions.IsAuthenticated,)
 
+    # 重写get_permissions方法，根据不同的action返回不同的权限
     def get_permissions(self):
         if self.action == "retrieve":
             return [permissions.IsAuthenticated()]
@@ -190,6 +194,25 @@ class UserViewset(
     # 保存serializer到数据库中
     def perform_create(self, serializer):
         return serializer.save()
+
+
+class CurrentUserViewSet(viewsets.ModelViewSet):
+    """
+    当前用户
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
+    authentication_classes = (
+        JWTAuthentication,
+        authentication.SessionAuthentication,
+    )
+    permission_classes = []
+
+    @action(detail=False, methods=["get"])
+    def me(self, request):
+        serializer = self.get_serializer(request.user)
+        return Response(serializer.data)
 
 
 class PermissionViewSet(viewsets.ModelViewSet):

@@ -192,8 +192,8 @@ REST_FRAMEWORK = {
 
 # simple JWT配置
 SIMPLE_JWT = {
-    # "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),  # Access Token的有效期
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),  # Access Token的有效期
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),  # Access Token的有效期
+    # "ACCESS_TOKEN_LIFETIME": timedelta(days=30),  # Access Token的有效期
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Refresh Token的有效期
 }
 
