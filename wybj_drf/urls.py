@@ -46,13 +46,10 @@ from apps.user.views import (
     EmailCodeViewset,
     PermissionViewSet,
     RoleViewSet,
-    # CustomTokenObtainPairView,
     CurrentUserViewSet,
     MenuViewSet,
 )
 
-# 配置使用DRF的路由功能
-# router = DefaultRouter()
 # simple router 不会自动添加末尾的斜杠
 router = SimpleRouter(trailing_slash=False)
 
@@ -80,7 +77,6 @@ urlpatterns = [
     path("api/", include(router.urls)),
     # simplejwt 验证用户名密码，并产生token
     path("api/login", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    # path("login/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     # simplejwt 刷新token
     path("refresh", TokenRefreshView.as_view(), name="token_refresh"),
     # simplejwt 验证token
