@@ -262,22 +262,19 @@ class MenuSerializer(serializers.ModelSerializer):
 
 class UserInfoSerializer(serializers.ModelSerializer):
     """
-    用户权限序列化类
+    用户信息序列化类
     """
 
+    # 获取用户角色
     role = RoleSerializer(many=True, read_only=True)
+    # 获取用户菜单
     menus = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = (
-            "username",
-            "email",
-            "password",
-            "role",
-            "menus",
-        )
+        fields = ("username", "email", "avatar", "role", "menus")
 
+    # 获取用户的菜单
     def get_menus(self, obj):
         # 获取用户的菜单并去重
         menus = obj.get_menus().distinct()

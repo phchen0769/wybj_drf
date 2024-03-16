@@ -235,6 +235,7 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
         JWTAuthentication,
         authentication.SessionAuthentication,
     )
+    pagination_class = None
 
     @action(detail=False, methods=["get"])
     def me(self, request):

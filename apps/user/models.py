@@ -96,7 +96,7 @@ class UserProfile(AbstractUser):
     username = models.CharField(
         max_length=30, null=True, blank=True, unique=True, verbose_name="姓名"
     )
-    icon = models.CharField(
+    avatar = models.CharField(
         max_length=50,
         verbose_name="用户头像",
         help_text="用户头像",
