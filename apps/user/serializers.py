@@ -7,7 +7,7 @@ from datetime import datetime
 from datetime import timedelta
 from rest_framework.validators import UniqueValidator
 
-from .models import SmsVerifyCode, EmailVerifyCode, Role, Permission
+from .models import SmsVerifyCode, EmailVerifyCode, Role, Permission, Menu
 
 from wybj_drf.settings import REGEX_MOBILE, REGEX_EMAIL, TIME_ZONE
 
@@ -248,3 +248,61 @@ class RoleSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Group
 #         fields = "__all__"
+
+
+class MenuSerializer(serializers.ModelSerializer):
+    """
+    菜单序列化类
+    """
+
+    class Meta:
+        model = Menu
+        fields = "__all__"
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    """
+    用户权限序列化类
+    """
+
+    role = RoleSerializer(many=True, read_only=True)
+    menus = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = (
+            "username",
+            "email",
+            "password",
+            "role",
+            "menus",
+        )
+
+    def get_menus(self, obj):
+        # 获取用户的菜单并去重
+        menus = obj.get_menus().distinct()
+        # 把菜单按照上级菜单的id进行分组
+        menu_dict = {}
+        for menu in menus:
+            if menu.sub_menu is None:
+                # 如果菜单没有上级菜单，将其作为顶级菜单添加到字典中
+                menu_dict[menu.id] = {
+                    "name": menu.name,
+                    "icon": menu.icon,
+                    "path": menu.path,
+                    "sub_menu": [],
+                }
+            else:
+                # 如果菜单有上级菜单，将其添加到上级菜单的 'sub_menu' 列表中
+                if menu.sub_menu.id not in menu_dict:
+                    # 如果上级菜单还没有被添加到字典中，先添加上级菜单
+                    menu_dict[menu.sub_menu.id] = {
+                        "name": menu.sub_menu.name,
+                        "icon": menu.sub_menu.icon,
+                        "path": menu.sub_menu.path,
+                        "sub_menu": [],
+                    }
+                menu_dict[menu.sub_menu.id]["sub_menu"].append(
+                    {"name": menu.name, "icon": menu.icon, "path": menu.path}
+                )
+        return menu_dict

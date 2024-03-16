@@ -60,22 +60,24 @@ class Permission(models.Model):
         Menu, on_delete=models.CASCADE, related_name="menu_id", verbose_name="菜单"
     )
 
+    class Meta:
+        verbose_name = "权限"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
 
 class Role(models.Model):
     """
     角色
     """
 
-    ROLE_TYPE = (
-        (1, "admin"),
-        (2, "teacher"),
-        (3, "student"),
-    )
-    role_type = models.IntegerField(
-        choices=ROLE_TYPE, verbose_name="角色", help_text="角色"
+    name = models.CharField(
+        default="", max_length=30, verbose_name="角色名称", help_text="角色名称"
     )
     permission = models.ManyToManyField(
-        Permission, related_name="permission_id", verbose_name="权限"
+        Permission, related_name="role", verbose_name="权限"
     )
 
     class Meta:
@@ -83,7 +85,7 @@ class Role(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.code
+        return self.name
 
 
 class UserProfile(AbstractUser):
@@ -93,6 +95,12 @@ class UserProfile(AbstractUser):
 
     username = models.CharField(
         max_length=30, null=True, blank=True, unique=True, verbose_name="姓名"
+    )
+    icon = models.CharField(
+        max_length=50,
+        verbose_name="用户头像",
+        help_text="用户头像",
+        default="default.jpg",
     )
     birthday = models.DateField(null=True, blank=True, verbose_name="生日")
     mobile = models.CharField(max_length=11, verbose_name="手机")
@@ -104,18 +112,21 @@ class UserProfile(AbstractUser):
     )
     email = models.CharField(max_length=100, null=True, blank=True, verbose_name="邮箱")
 
-    # role = models.ForeignKey(
-    #     Role,
-    #     on_delete=models.SET_NULL,
-    #     # related_name="role_id",
-    #     verbose_name="角色",
-    # )
-
     role = models.ManyToManyField(
         Role,
+        # 方便进行反向查询
         related_name="role_id",
         verbose_name="角色",
     )
+
+    def get_menus(self):
+        # 获取该用户所有角色
+        roles = self.role.all()
+        # 获取所有角色的权限
+        permissions = Permission.objects.filter(role__in=roles)
+        # 获取所有权限的菜单
+        menus = Menu.objects.filter(menu_id__in=permissions)
+        return menus
 
     class Meta:
         verbose_name = "用户"

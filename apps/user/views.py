@@ -30,6 +30,8 @@ from .serializers import (
     UserDetailSerializer,
     PermissionSerializer,
     RoleSerializer,
+    MenuSerializer,
+    UserInfoSerializer,
 )
 from wybj_drf.settings import APIKEY
 from utils.yunpian import YunPian
@@ -37,7 +39,7 @@ from utils.renderer import CustomJSONRenderer
 
 
 # 导入自定义model
-from .models import SmsVerifyCode, EmailVerifyCode, Permission, Role
+from .models import SmsVerifyCode, EmailVerifyCode, Permission, Role, Menu
 
 User = get_user_model()
 
@@ -132,7 +134,6 @@ class EmailCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# 管理员接口
 class UserViewset(
     CreateModelMixin,
     mixins.UpdateModelMixin,
@@ -196,25 +197,6 @@ class UserViewset(
         return serializer.save()
 
 
-class CurrentUserViewSet(viewsets.ModelViewSet):
-    """
-    当前用户
-    """
-
-    queryset = User.objects.all()
-    serializer_class = UserDetailSerializer
-    authentication_classes = (
-        JWTAuthentication,
-        authentication.SessionAuthentication,
-    )
-    permission_classes = []
-
-    @action(detail=False, methods=["get"])
-    def me(self, request):
-        serializer = self.get_serializer(request.user)
-        return Response(serializer.data)
-
-
 class PermissionViewSet(viewsets.ModelViewSet):
     """
     权限
@@ -231,3 +213,30 @@ class RoleViewSet(viewsets.ModelViewSet):
 
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
+
+
+class MenuViewSet(viewsets.ModelViewSet):
+    """
+    菜单
+    """
+
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
+
+class CurrentUserViewSet(viewsets.ModelViewSet):
+    """
+    当前用户
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserInfoSerializer
+    authentication_classes = (
+        JWTAuthentication,
+        authentication.SessionAuthentication,
+    )
+
+    @action(detail=False, methods=["get"])
+    def me(self, request):
+        serializer = self.get_serializer(request.user)
+        return Response(serializer.data)

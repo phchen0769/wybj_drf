@@ -33,6 +33,16 @@ permission_datas = [
         "method_type": [1, 3, 4, 5, 6],
         "menu_id": 9,
     },
+    {
+        "name": "userinfo-list",
+        "method_type": [1, 2],
+        "menu_id": 9,
+    },
+    {
+        "name": "userinfo-detail",
+        "method_type": [1, 3, 4, 5, 6],
+        "menu_id": 9,
+    },
     {"name": "sms-list", "method_type": [1, 2], "menu_id": 10},
     {
         "name": "sms-detail",
@@ -45,6 +55,9 @@ permission_datas = [
         "method_type": [1, 3, 4, 5, 6],
         "menu_id": 11,
     },
+    # 菜单管理
+    {"name": "menus-list", "method_type": [1, 2], "menu_id": 12},
+    {"name": "menus-detail", "method_type": [1, 3, 4, 5, 6], "menu_id": 12},
     # 权限管理数据
     {"name": "permissions-list", "method_type": [1, 2], "menu_id": 12},
     {

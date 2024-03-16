@@ -2,9 +2,11 @@ import os
 import django
 
 # 设置django环境，否则无法使用django的ORM
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "your_project_name.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wybj_drf.settings")
 django.setup()
 
+# 导入模型
+from apps.user.models import Menu, Permission, Role, UserProfile
 
 # 导入菜单数据
 from DB_tools.menu_datas import menu_datas
@@ -18,8 +20,8 @@ from DB_tools.role_datas import role_datas
 # 导入角色权限数据
 from DB_tools.role_permission_datas import role_permission_datas
 
-# 把权限数据导入到数据库中
-from apps.user.models import Menu, Permission, Role
+# 导入用户角色数据
+from DB_tools.user_role_datas import user_role_datas
 
 
 # 导入菜单数据
@@ -53,19 +55,32 @@ def import_permission():
 def import_role():
     for role in role_datas:
         Role.objects.create(
-            role_type=role["role_type"],
+            name=role["name"],
         )
 
 
 # 导入角色权限数据
 def import_role_permission():
     for role_permission_data in role_permission_datas:
+        # 从数据库中获取，对应角色的对象
         role = Role.objects.get(id=role_permission_data["role_id"])
         for permission in role_permission_data["permission_id"]:
+            # 从数据中获取，对应权限的对象
             permission = Permission.objects.filter(
                 id__in=role_permission_data["permission_id"]
             )
             role.permission.set(permission)
+
+
+# 导入用户角色
+def import_user_role():
+    for user_role_data in user_role_datas:
+        # 从数据库中获取对应的用户对象
+        user = UserProfile.objects.get(id=user_role_data["user_id"])
+        # 从数据库中获取对应的角色对象
+        roles = Role.objects.filter(id__in=user_role_data["role_id"])
+        # 将角色对象关联到用户对象
+        user.role.set(roles)
 
 
 if __name__ == "__main__":
@@ -73,4 +88,5 @@ if __name__ == "__main__":
     import_permission()
     import_role()
     import_role_permission()
+    import_user_role()
     print("导入成功")

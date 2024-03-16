@@ -48,6 +48,7 @@ from apps.user.views import (
     RoleViewSet,
     # CustomTokenObtainPairView,
     CurrentUserViewSet,
+    MenuViewSet,
 )
 
 # 配置使用DRF的路由功能
@@ -67,6 +68,7 @@ router.register("sms", SmsCodeViewset, basename="sms")
 router.register("email", EmailCodeViewset, basename="email")
 router.register("permissions", PermissionViewSet, basename="permissions")
 router.register("roles", RoleViewSet, basename="roles")
+router.register("menus", MenuViewSet, basename="menus")
 router.register("userinfo", CurrentUserViewSet, basename="userinfo")
 
 urlpatterns = [
