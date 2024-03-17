@@ -10,15 +10,13 @@ class Menu(models.Model):
     菜单
     """
 
-    name = models.CharField(
-        default="", max_length=30, verbose_name="菜单名", help_text="菜单名"
+    menu_id = models.IntegerField(
+        default=0,
+        unique=True,
+        primary_key=True,
+        verbose_name="菜单ID",
+        help_text="菜单ID",
     )
-    icon = models.CharField(max_length=50, verbose_name="图标", help_text="图标")
-
-    path = models.CharField(
-        default="", max_length=50, verbose_name="路径", help_text="路径"
-    )
-
     sub_menu = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
@@ -26,14 +24,28 @@ class Menu(models.Model):
         blank=True,
         verbose_name="上级菜单",
         help_text="上级菜单",
+        related_name="children_menu",
     )
+    path = models.CharField(
+        default="", max_length=50, verbose_name="路径", help_text="路径"
+    )
+
+    component = models.CharField(
+        default="", max_length=50, verbose_name="组件名称", help_text="组件名称"
+    )
+    redirect = models.CharField(
+        max_length=30, verbose_name="重定向", help_text="重定向"
+    )
+    name = models.CharField(max_length=30, verbose_name="路由名", help_text="路由名")
+    title = models.CharField(max_length=30, verbose_name="菜单名", help_text="菜单名")
+    icon = models.CharField(max_length=50, verbose_name="图标", help_text="图标")
 
     class Meta:
         verbose_name = "菜单"
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Permission(models.Model):
@@ -57,7 +69,7 @@ class Permission(models.Model):
         choices=METHOD_TYPE, verbose_name="方法类型", help_text="方法"
     )
     menu = models.ForeignKey(
-        Menu, on_delete=models.CASCADE, related_name="menu_id", verbose_name="菜单"
+        Menu, on_delete=models.CASCADE, related_name="menu", verbose_name="菜单"
     )
 
     class Meta:
@@ -72,6 +84,14 @@ class Role(models.Model):
     """
     角色
     """
+
+    role_id = models.IntegerField(
+        default=0,
+        unique=True,
+        primary_key=True,
+        verbose_name="角色ID",
+        help_text="角色ID",
+    )
 
     name = models.CharField(
         default="", max_length=30, verbose_name="角色名称", help_text="角色名称"
@@ -115,7 +135,7 @@ class UserProfile(AbstractUser):
     role = models.ManyToManyField(
         Role,
         # 方便进行反向查询
-        related_name="role_id",
+        related_name="role",
         verbose_name="角色",
     )
 
