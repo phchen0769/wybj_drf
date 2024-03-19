@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import json
 import re
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
@@ -278,28 +278,78 @@ class UserInfoSerializer(serializers.ModelSerializer):
     def get_menus(self, obj):
         # 获取用户的菜单并去重
         menus = obj.get_menus().distinct()
-        # 把菜单按照上级菜单的id进行分组
-        menu_dict = {}
+        menu_list = []
+        menu_child = []
         for menu in menus:
-            if menu.sub_menu is None:
-                # 如果菜单没有上级菜单，将其作为顶级菜单添加到字典中
-                menu_dict[menu.id] = {
-                    "name": menu.name,
-                    "icon": menu.icon,
+            if not menu.sub_menu_id:
+            # 创建父级菜单
+            menu_list.append(
+                {
                     "path": menu.path,
-                    "sub_menu": [],
+                    "component": menu.component,
+                    "redirect": menu.redirect,
+                    "name": menu.name,
+                    "title": menu.title,
+                    "icon": menu.icon,
+                    "children": [],
                 }
-            else:
-                # 如果菜单有上级菜单，将其添加到上级菜单的 'sub_menu' 列表中
-                if menu.sub_menu.id not in menu_dict:
-                    # 如果上级菜单还没有被添加到字典中，先添加上级菜单
-                    menu_dict[menu.sub_menu.id] = {
-                        "name": menu.sub_menu.name,
-                        "icon": menu.sub_menu.icon,
-                        "path": menu.sub_menu.path,
-                        "sub_menu": [],
-                    }
-                menu_dict[menu.sub_menu.id]["sub_menu"].append(
-                    {"name": menu.name, "icon": menu.icon, "path": menu.path}
-                )
-        return menu_dict
+            )
+            menus.exclude(menu_id=menu.menu_id)
+        # else:
+        # menu_child.append(menu)
+
+        # for menu in menu_child:
+
+        # if menu.sub_menu_id:  # 判断菜单是子菜单
+        #     # 创建父级菜单
+        #     menu_father = dict(
+        #         path=menu.sub_menu.path,
+        #         component=menu.sub_menu.component,
+        #         redirect=menu.sub_menu.redirect,
+        #         name=menu.sub_menu.name,
+        #         title=menu.sub_menu.title,
+        #         icon=menu.sub_menu.icon,
+        #         children=[],
+        #     )
+        #     # 创建子菜单
+        #     menu_child = dict(
+        #         path=menu.path,
+        #         component=menu.component,
+        #         redirect=menu.redirect,
+        #         name=menu.name,
+        #         title=menu.title,
+        #         icon=menu.icon,
+        #     )
+        #     # 首次出现的父菜单
+        #     for i in menu_list:
+        #         if i["path"] != menu_father["path"]:
+        #             # 子菜单存入父菜单
+        #             menu_father["children"].append(menu_child)
+        #             # 父菜单存入菜单列表
+        #             menu_list.append(menu_father)
+        #         else:
+        #             if (
+        #                 menu_child
+        #                 not in menu_list[menu_list.index(menu_father)]["children"]
+        #             ):
+        #                 menu_list[menu_list.index(menu_father)]["children"].append(
+        #                     menu_child
+        #                 )
+        # else:
+        #     # 创建父级菜单
+        #     menu_father = dict(
+        #         path=menu.path,
+        #         component=menu.component,
+        #         redirect=menu.redirect,
+        #         name=menu.name,
+        #         title=menu.title,
+        #         icon=menu.icon,
+        #         children=[],
+        #     )
+        #     # 首次出现的父菜单
+        #     for i in menu_list:
+        #         if i["path"] != menu_father["path"]:
+        #             # 父菜单存入菜单列表
+        #             menu_list.append(menu_father)
+        print(menu_list)
+        return menu_list

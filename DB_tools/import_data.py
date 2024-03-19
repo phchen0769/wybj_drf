@@ -31,7 +31,7 @@ def import_menu():
             menu_id=menu["menu_id"],
             # 如果sub_menu有值，就取出对应的菜单对象，否则就是None
             sub_menu=(
-                Menu.objects.get(id=menu["sub_menu"]) if menu["sub_menu"] else None
+                Menu.objects.get(menu_id=menu["sub_menu"]) if menu["sub_menu"] else None
             ),
             path=menu["path"],
             component=menu["component"],
@@ -89,8 +89,8 @@ def import_user_role():
 
 if __name__ == "__main__":
     import_menu()
-    # import_permission()
-    # import_role()
-    # import_role_permission()
-    # import_user_role()
+    import_permission()
+    import_role()
+    import_role_permission()
+    import_user_role()
     print("导入成功")

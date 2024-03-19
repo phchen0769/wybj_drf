@@ -1,13 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-"""
-  RoleListRouter,
-  UserManageRouter,
-  PermissionListRouter,
-  ArticleCreaterRouter,
-  ArticleRouter
-"""
 menu_datas = [
     {
         "menu_id": 1000,
@@ -68,16 +61,6 @@ menu_datas = [
         "name": None,
         "title": "roleList",
         "icon": "role",
-    },
-    {
-        "menu_id": 2005,
-        "sub_menu": 2000,
-        "path": "/user/permission",
-        "component": "permission-list/index",
-        "redirect": None,
-        "name": None,
-        "title": "permissionList",
-        "icon": "permission",
     },
     {
         "menu_id": 2005,

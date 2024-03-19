@@ -14,10 +14,10 @@ class Article(models.Model):
         verbose_name="作者",
         help_text="作者",
     )
-    title = models.CharField(max_length=40, verbose_name="标题", help_text="标题")
-    desc = models.CharField(max_length=100, verbose_name="描述", help_text="描述")
+    title = models.CharField(null=True,max_length=40, verbose_name="标题", help_text="标题")
+    desc = models.CharField(null=True,max_length=100, verbose_name="描述", help_text="描述")
     content = models.CharField(
-        max_length=300, verbose_name="文章内容", help_text="文章内容"
+        null=True,max_length=300, verbose_name="文章内容", help_text="文章内容"
     )
     add_time = models.DateTimeField(default=datetime.now, verbose_name="发布时间")
 

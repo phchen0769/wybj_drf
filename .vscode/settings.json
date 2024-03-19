@@ -1,6 +1,6 @@
 {
     "editor.fontSize": 20,
-    "workbench.colorTheme": "Atom One Dark",
+    "workbench.colorTheme": "Copilot Theme",
     "editor.fontFamily": "YOUR FONT, Menlo, Monaco, 'Courier New', monospace",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"

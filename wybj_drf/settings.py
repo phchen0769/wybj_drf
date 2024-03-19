@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    # "django.contrib.admin",
+    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -219,4 +219,4 @@ EMAIL_HOST_PASSWORD = "sdykrpblxozebfcd"  # 授权码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # 禁用URL后面自动加斜杠
-APPEND_SLASH = False
+# APPEND_SLASH = False
