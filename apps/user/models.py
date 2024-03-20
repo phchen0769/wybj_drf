@@ -35,6 +35,9 @@ class Menu(models.Model):
     redirect = models.CharField(
         null=True, max_length=30, verbose_name="重定向", help_text="重定向"
     )
+    hidden = models.BooleanField(
+        default=False, verbose_name="是否隐藏", help_text="是否隐藏"
+    )
     name = models.CharField(
         null=True, max_length=30, verbose_name="路由名", help_text="路由名"
     )
@@ -76,7 +79,6 @@ class Permission(models.Model):
     menu = models.ForeignKey(
         Menu,
         on_delete=models.CASCADE,
-        # related_name="permission",
         verbose_name="菜单",
         help_text="菜单",
     )
@@ -99,7 +101,6 @@ class Role(models.Model):
     )
     permission = models.ManyToManyField(
         Permission,
-        # related_name="permission_id",
         verbose_name="权限",
         help_text="权限",
     )
@@ -148,24 +149,28 @@ class UserProfile(AbstractUser):
 
     role = models.ManyToManyField(
         Role,
-        # 方便进行反向查询
-        # related_name="role_id",
         verbose_name="角色",
         help_text="角色",
     )
 
     def get_menus(self):
         if self.is_anonymous:
-            menus = {}
+            menus = []
             return menus
         else:
             # 获取该用户所有角色
             roles = self.role.all()
             # 获取所有角色的权限
             permissions = Permission.objects.filter(role__in=roles)
-            # 获取所有权限的菜单
-            menus = Menu.objects.filter(permission__in=permissions)
-            return menus
+            # 获取所有权限的子菜单
+            child_menus = Menu.objects.filter(permission__in=permissions)
+            # 获取所有的上级菜单
+            sub_menus = Menu.objects.filter(sub_menu__isnull=True)
+            # 获取所有权限的上级菜单
+            menus = sub_menus.filter(menu_id__in=child_menus.values("sub_menu_id"))
+            # 合并上级菜单和子菜单
+            all_menus = menus | child_menus
+            return all_menus
 
     class Meta:
         verbose_name = "用户"
