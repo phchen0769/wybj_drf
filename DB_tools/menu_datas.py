@@ -11,7 +11,7 @@ menu_datas = [
         "redirect": None,
         "name": "profile",
         "title": "profile",
-        "icon": "el-icon-user",
+        "icon": "user",
     },
     {
         "menu_id": 2000,

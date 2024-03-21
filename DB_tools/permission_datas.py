@@ -57,6 +57,11 @@ permission_datas = [
         "menu_id": 3002,
     },
     {
+        "name": "article-detail",
+        "method_type": [1, 3, 4, 5, 6],
+        "menu_id": 3003,
+    },
+    {
         "name": "students-list",
         "method_type": [1, 2],
         "menu_id": 1000,
