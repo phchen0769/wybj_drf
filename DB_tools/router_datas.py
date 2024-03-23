@@ -19,7 +19,7 @@ router_datas = [
         "path": "/user",
         "component": "layout",
         "hidden": False,
-        "redirect": "userManage",
+        "redirect": "/user/manage",
         "name": "userManage",
         "title": "user",
         "icon": "personnel",

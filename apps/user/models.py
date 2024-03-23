@@ -129,7 +129,7 @@ class UserProfile(AbstractUser):
         max_length=50,
         verbose_name="用户头像",
         help_text="用户头像",
-        default="default.jpg",
+        default="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png",
     )
     birthday = models.DateField(
         null=True, blank=True, verbose_name="生日", help_text="生日"
