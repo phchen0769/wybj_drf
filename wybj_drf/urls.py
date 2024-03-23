@@ -47,7 +47,7 @@ from apps.user.views import (
     PermissionViewSet,
     RoleViewSet,
     CurrentUserViewSet,
-    MenuViewSet,
+    RouterViewSet,
 )
 
 # simple router 不会自动添加末尾的斜杠
@@ -65,7 +65,7 @@ router.register("sms", SmsCodeViewset, basename="sms")
 router.register("email", EmailCodeViewset, basename="email")
 router.register("permissions", PermissionViewSet, basename="permissions")
 router.register("roles", RoleViewSet, basename="roles")
-router.register("menus", MenuViewSet, basename="menus")
+router.register("routers", RouterViewSet, basename="routers")
 router.register("userinfo", CurrentUserViewSet, basename="userinfo")
 
 urlpatterns = [

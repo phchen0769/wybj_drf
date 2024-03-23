@@ -5,25 +5,24 @@ from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
-class Menu(models.Model):
+class Router(models.Model):
     """
-    菜单
+    路由
     """
 
-    menu_id = models.IntegerField(
+    router_id = models.IntegerField(
         default=0,
         primary_key=True,
-        verbose_name="菜单ID",
-        help_text="菜单ID",
+        verbose_name="路由id",
+        help_text="路由id",
     )
-    sub_menu = models.ForeignKey(
+    sub_router = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name="上级菜单",
-        help_text="上级菜单",
-        # related_name="children_menu",
+        verbose_name="上级路由",
+        help_text="上级路由",
     )
     path = models.CharField(
         null=True, max_length=50, verbose_name="路径", help_text="路径"
@@ -42,14 +41,14 @@ class Menu(models.Model):
         null=True, max_length=30, verbose_name="路由名", help_text="路由名"
     )
     title = models.CharField(
-        null=True, max_length=30, verbose_name="菜单名", help_text="菜单名"
+        null=True, max_length=30, verbose_name="路由标题", help_text="路由标题"
     )
     icon = models.CharField(
         null=True, max_length=50, verbose_name="图标", help_text="图标"
     )
 
     class Meta:
-        verbose_name = "菜单"
+        verbose_name = "路由"
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -76,8 +75,8 @@ class Permission(models.Model):
     method_type = models.IntegerField(
         choices=METHOD_TYPE, verbose_name="方法类型", help_text="方法类型"
     )
-    menu = models.ForeignKey(
-        Menu,
+    router = models.ForeignKey(
+        Router,
         on_delete=models.CASCADE,
         verbose_name="菜单",
         help_text="菜单",
@@ -153,24 +152,26 @@ class UserProfile(AbstractUser):
         help_text="角色",
     )
 
-    def get_menus(self):
+    def get_routers(self):
         if self.is_anonymous:
-            menus = []
-            return menus
+            routers = []
+            return routers
         else:
             # 获取该用户所有角色
             roles = self.role.all()
             # 获取所有角色的权限
             permissions = Permission.objects.filter(role__in=roles)
             # 获取所有权限的子菜单
-            child_menus = Menu.objects.filter(permission__in=permissions)
+            child_routers = Router.objects.filter(permission__in=permissions)
             # 获取所有的上级菜单
-            sub_menus = Menu.objects.filter(sub_menu__isnull=True)
+            sub_routers = Router.objects.filter(sub_router__isnull=True)
             # 获取所有权限的上级菜单
-            menus = sub_menus.filter(menu_id__in=child_menus.values("sub_menu_id"))
+            routers = sub_routers.filter(
+                router_id__in=child_routers.values("sub_router_id")
+            )
             # 合并上级菜单和子菜单
-            all_menus = menus | child_menus
-            return all_menus
+            all_routers = routers | child_routers
+            return all_routers
 
     class Meta:
         verbose_name = "用户"

@@ -29,7 +29,7 @@ from .serializers import (
     UserDetailSerializer,
     PermissionSerializer,
     RoleSerializer,
-    MenuSerializer,
+    RouterSerializer,
     UserInfoSerializer,
 )
 from wybj_drf.settings import APIKEY
@@ -37,7 +37,7 @@ from utils.yunpian import YunPian
 
 
 # 导入自定义model
-from .models import SmsVerifyCode, EmailVerifyCode, Permission, Role, Menu
+from .models import SmsVerifyCode, EmailVerifyCode, Permission, Role, Router
 
 User = get_user_model()
 
@@ -213,13 +213,13 @@ class RoleViewSet(viewsets.ModelViewSet):
     serializer_class = RoleSerializer
 
 
-class MenuViewSet(viewsets.ModelViewSet):
+class RouterViewSet(viewsets.ModelViewSet):
     """
     菜单
     """
 
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+    queryset = Router.objects.all()
+    serializer_class = Router
 
 
 class CurrentUserViewSet(viewsets.ModelViewSet):

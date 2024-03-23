@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-menu_datas = [
+router_datas = [
     {
-        "menu_id": 1000,
-        "sub_menu": None,
+        "router_id": 1000,
+        "sub_router": None,
         "path": "/profile",
         "component": "profile",
         "hidden": False,
@@ -14,8 +14,8 @@ menu_datas = [
         "icon": "user",
     },
     {
-        "menu_id": 2000,
-        "sub_menu": None,
+        "router_id": 2000,
+        "sub_router": None,
         "path": "/user",
         "component": "layout",
         "hidden": False,
@@ -25,8 +25,8 @@ menu_datas = [
         "icon": "personnel",
     },
     {
-        "menu_id": 2001,
-        "sub_menu": 2000,
+        "router_id": 2001,
+        "sub_router": 2000,
         "path": "/user/manage",
         "component": "user-manage",
         "hidden": False,
@@ -36,8 +36,8 @@ menu_datas = [
         "icon": "personnel-manage",
     },
     {
-        "menu_id": 2002,
-        "sub_menu": 2000,
+        "router_id": 2002,
+        "sub_router": 2000,
         "path": "/user/info/:id",
         "component": "user-info",
         "hidden": True,
@@ -47,8 +47,8 @@ menu_datas = [
         "icon": None,
     },
     {
-        "menu_id": 2003,
-        "sub_menu": 2000,
+        "router_id": 2003,
+        "sub_router": 2000,
         "path": "/user/import",
         "component": "import",
         "hidden": True,
@@ -58,8 +58,8 @@ menu_datas = [
         "icon": None,
     },
     {
-        "menu_id": 2004,
-        "sub_menu": 2000,
+        "router_id": 2004,
+        "sub_router": 2000,
         "path": "/user/role",
         "component": "role-list",
         "hidden": False,
@@ -69,8 +69,8 @@ menu_datas = [
         "icon": "role",
     },
     {
-        "menu_id": 2005,
-        "sub_menu": 2000,
+        "router_id": 2005,
+        "sub_router": 2000,
         "path": "/user/permission",
         "component": "permission-list",
         "hidden": False,
@@ -81,8 +81,8 @@ menu_datas = [
     },
     # 业务
     {
-        "menu_id": 3000,
-        "sub_menu": None,
+        "router_id": 3000,
+        "sub_router": None,
         "path": "/article",
         "component": "layout",
         "hidden": False,
@@ -92,8 +92,8 @@ menu_datas = [
         "icon": "article",
     },
     {
-        "menu_id": 3001,
-        "sub_menu": 3000,
+        "router_id": 3001,
+        "sub_router": 3000,
         "path": "/article/:id",
         "component": "article-detail",
         "hidden": True,
@@ -103,8 +103,8 @@ menu_datas = [
         "icon": None,
     },
     {
-        "menu_id": 3002,
-        "sub_menu": 3000,
+        "router_id": 3002,
+        "sub_router": 3000,
         "path": "/article/create",
         "component": "article-create",
         "hidden": False,
@@ -114,8 +114,8 @@ menu_datas = [
         "icon": "article-create",
     },
     {
-        "menu_id": 3003,
-        "sub_menu": 3000,
+        "router_id": 3003,
+        "sub_router": 3000,
         "path": "/article/ranking",
         "component": "article-ranking",
         "hidden": False,

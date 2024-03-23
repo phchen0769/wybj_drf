@@ -6,10 +6,10 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wybj_drf.settings")
 django.setup()
 
 # 导入模型
-from apps.user.models import Menu, Permission, Role, UserProfile
+from apps.user.models import Router, Permission, Role, UserProfile
 
 # 导入菜单数据
-from DB_tools.menu_datas import menu_datas
+from DB_tools.router_datas import router_datas
 
 # 导入权限数据
 from DB_tools.permission_datas import permission_datas
@@ -25,20 +25,22 @@ from DB_tools.user_role_datas import user_role_datas
 
 
 # 导入菜单数据
-def import_menu():
-    for menu in menu_datas:
-        Menu.objects.create(
-            menu_id=menu["menu_id"],
-            # 如果sub_menu有值，就取出对应的菜单对象，否则就是None
-            sub_menu=(
-                Menu.objects.get(menu_id=menu["sub_menu"]) if menu["sub_menu"] else None
+def import_router():
+    for router in router_datas:
+        Router.objects.create(
+            router_id=router["router_id"],
+            # 如果sub_router有值，就取出对应的菜单对象，否则就是None
+            sub_router=(
+                Router.objects.get(router_id=router["sub_router"])
+                if router["sub_router"]
+                else None
             ),
-            path=menu["path"],
-            component=menu["component"],
-            redirect=menu["redirect"],
-            name=menu["name"],
-            title=menu["title"],
-            icon=menu["icon"],
+            path=router["path"],
+            component=router["component"],
+            redirect=router["redirect"],
+            name=router["name"],
+            title=router["title"],
+            icon=router["icon"],
         )
 
 
@@ -51,7 +53,7 @@ def import_permission():
             Permission.objects.create(
                 method_type=method,
                 name=permission["name"],
-                menu_id=permission["menu_id"],
+                router_id=permission["router_id"],
             )
 
 
@@ -88,7 +90,7 @@ def import_user_role():
 
 
 if __name__ == "__main__":
-    import_menu()
+    import_router()
     import_permission()
     import_role()
     import_role_permission()

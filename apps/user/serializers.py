@@ -7,7 +7,7 @@ from datetime import datetime
 from datetime import timedelta
 from rest_framework.validators import UniqueValidator
 
-from .models import SmsVerifyCode, EmailVerifyCode, Role, Permission, Menu
+from .models import SmsVerifyCode, EmailVerifyCode, Role, Permission, Router
 
 from wybj_drf.settings import REGEX_MOBILE, REGEX_EMAIL, TIME_ZONE
 
@@ -250,13 +250,13 @@ class RoleSerializer(serializers.ModelSerializer):
 #         fields = "__all__"
 
 
-class MenuSerializer(serializers.ModelSerializer):
+class RouterSerializer(serializers.ModelSerializer):
     """
-    菜单序列化类
+    路由序列化类
     """
 
     class Meta:
-        model = Menu
+        model = Router
         fields = "__all__"
 
 
@@ -267,15 +267,15 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
     # 获取用户角色
     # role = RoleSerializer(many=True, read_only=True)
-    # 获取用户菜单
-    menus = serializers.SerializerMethodField()
+    # 获取用户路由
+    routers = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ("username", "email", "avatar", "menus")
+        fields = ("username", "email", "avatar", "routers")
 
     # 获取用户的菜单
-    def get_menus(self, obj):
+    def get_routers(self, obj):
         # 获取用户的菜单并去重
-        menus = obj.get_menus().distinct()
-        return MenuSerializer(menus, many=True).data
+        routers = obj.get_routers().distinct()
+        return RouterSerializer(routers, many=True).data
