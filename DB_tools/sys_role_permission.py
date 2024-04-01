@@ -1,4 +1,4 @@
-from permission_datas import permission_datas
+from DB_tools.sys_permission import permission_datas
 
 # 计算出所有权限的数量
 all_permission = 0

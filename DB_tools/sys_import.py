@@ -9,19 +9,19 @@ django.setup()
 from apps.user.models import Router, Permission, Role, UserProfile
 
 # 导入菜单数据
-from DB_tools.router_datas import router_datas
+from DB_tools.sys_router import router_datas
 
 # 导入权限数据
-from DB_tools.permission_datas import permission_datas
+from DB_tools.sys_permission import permission_datas
 
 # 导入角色数据
-from DB_tools.role_datas import role_datas
+from DB_tools.sys_role import role_datas
 
 # 导入角色权限数据
-from DB_tools.role_permission_datas import role_permission_datas
+from DB_tools.sys_role_permission import role_permission_datas
 
 # 导入用户角色数据
-from DB_tools.user_role_datas import user_role_datas
+from DB_tools.sys_user_role import user_role_datas
 
 
 # 导入菜单数据
@@ -95,4 +95,4 @@ if __name__ == "__main__":
     import_role()
     import_role_permission()
     import_user_role()
-    print("导入成功")
+    print("sys导入成功")

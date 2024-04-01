@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "apps.user",
     "apps.score",
     "apps.article",
+    "apps.feature",
     "rest_framework",
     "corsheaders",
     "rest_framework_simplejwt",

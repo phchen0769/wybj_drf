@@ -67,7 +67,7 @@ class CustomBackend(ModelBackend):
                 return user
 
 
-class SmsCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
+class SmsCodeViewSet(CreateModelMixin, viewsets.GenericViewSet):
     """
     发送短信验证码
     """
@@ -97,7 +97,7 @@ class SmsCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
             return Response({"mobile": mobile}, status=status.HTTP_201_CREATED)
 
 
-class EmailCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
+class EmailCodeViewSet(CreateModelMixin, viewsets.GenericViewSet):
     """
     发送邮箱验证码
     """
@@ -132,14 +132,14 @@ class EmailCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserViewset(
+class CurrentUserViewSet(
     CreateModelMixin,
     mixins.UpdateModelMixin,
     mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
 ):
     """
-    用户
+    用户注册、更新、获取用户信息
     """
 
     serializer_class = EmailUserRegSerializer
@@ -222,9 +222,9 @@ class RouterViewSet(viewsets.ModelViewSet):
     serializer_class = Router
 
 
-class CurrentUserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     """
-    当前用户
+    用户
     """
 
     queryset = User.objects.all()
@@ -235,7 +235,7 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
     )
     pagination_class = None
 
-    @action(detail=False, methods=["get"])
-    def me(self, request):
-        serializer = self.get_serializer(request.user)
-        return Response(serializer.data)
+    # @action(detail=False, methods=["get"])
+    # def me(self, request):
+    #     serializer = self.get_serializer(request.user)
+    #     return Response(serializer.data)

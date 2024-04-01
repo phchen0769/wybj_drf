@@ -31,6 +31,17 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
+# 从user app中导入viewset
+from apps.user.views import (
+    UserViewSet,
+    SmsCodeViewSet,
+    EmailCodeViewSet,
+    PermissionViewSet,
+    RoleViewSet,
+    CurrentUserViewSet,
+    RouterViewSet,
+)
+
 # 从score app中导入viewset
 from apps.score.views import (
     StudentViewSet,
@@ -39,19 +50,25 @@ from apps.score.views import (
     PaperViewSet,
 )
 
-# 从user app中导入viewset
-from apps.user.views import (
-    UserViewset,
-    SmsCodeViewset,
-    EmailCodeViewset,
-    PermissionViewSet,
-    RoleViewSet,
-    CurrentUserViewSet,
-    RouterViewSet,
-)
+# 从article app中导入ArticleViewSet
+from apps.article.views import ArticleViewSet, ChapterViewSet
+
+# 从feature app中导入viewset
+from apps.feature.views import FeatureViewSet
+
 
 # simple router 不会自动添加末尾的斜杠
 router = SimpleRouter(trailing_slash=False)
+
+# user app的url配置
+router.register("users", UserViewSet, basename="users")
+router.register("sms", SmsCodeViewSet, basename="sms")
+router.register("email", EmailCodeViewSet, basename="email")
+router.register("permissions", PermissionViewSet, basename="permissions")
+router.register("roles", RoleViewSet, basename="roles")
+router.register("routers", RouterViewSet, basename="routers")
+router.register("userinfo", CurrentUserViewSet, basename="userinfo")
+# router.register("register", CurrentUserViewSet, basename="register")
 
 # score app的url配置
 router.register("students", StudentViewSet, basename="students")
@@ -59,14 +76,13 @@ router.register("answers", AnswerViewSet, basename="answers")
 router.register("questions", QuestionViewSet, basename="questions")
 router.register("papers", PaperViewSet, basename="papers")
 
-# user app的url配置
-router.register("users", UserViewset, basename="users")
-router.register("sms", SmsCodeViewset, basename="sms")
-router.register("email", EmailCodeViewset, basename="email")
-router.register("permissions", PermissionViewSet, basename="permissions")
-router.register("roles", RoleViewSet, basename="roles")
-router.register("routers", RouterViewSet, basename="routers")
-router.register("userinfo", CurrentUserViewSet, basename="userinfo")
+# article app的url配置
+router.register("articles", ArticleViewSet, basename="articles")
+router.register("chapters", ChapterViewSet, basename="chapters")
+
+# featurn app的url配置
+router.register("features", FeatureViewSet, basename="features")
+
 
 urlpatterns = [
     # api文档功能

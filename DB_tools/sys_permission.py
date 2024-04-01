@@ -47,17 +47,32 @@ permission_datas = [
     },
     # 业务
     {
-        "name": "article-list",
+        "name": "articles-list",
         "method_type": [1, 2],
         "router_id": 3001,
     },
     {
-        "name": "article-detail",
+        "name": "articles-detail",
         "method_type": [1, 3, 4, 5, 6],
         "router_id": 3002,
     },
     {
-        "name": "article-detail",
+        "name": "chapters-list",
+        "method_type": [1, 2],
+        "router_id": 3003,
+    },
+    {
+        "name": "chapters-detail",
+        "method_type": [1, 3, 4, 5, 6],
+        "router_id": 3003,
+    },
+    {
+        "name": "features-list",
+        "method_type": [1, 2],
+        "router_id": 3003,
+    },
+    {
+        "name": "features-detail",
         "method_type": [1, 3, 4, 5, 6],
         "router_id": 3003,
     },
