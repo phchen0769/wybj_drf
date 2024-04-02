@@ -272,7 +272,15 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("username", "email", "avatar", "routers", "role")
+        fields = (
+            "username",
+            "email",
+            "mobile",
+            "avatar",
+            "routers",
+            "role",
+            "add_time",
+        )
 
     # 获取用户的菜单
     def get_routers(self, obj):

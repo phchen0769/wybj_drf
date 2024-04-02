@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -150,6 +150,12 @@ class UserProfile(AbstractUser):
         Role,
         verbose_name="角色",
         help_text="角色",
+    )
+
+    add_time = models.DateField(
+        default=date.today,
+        verbose_name="添加时间",
+        help_text="添加时间",
     )
 
     def get_routers(self):

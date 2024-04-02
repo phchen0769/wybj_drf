@@ -233,7 +233,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserInfoSerializer
-    pagination_class = None
 
     @action(detail=False, methods=["get"])
     def me(self, request):
