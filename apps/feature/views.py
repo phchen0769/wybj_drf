@@ -14,3 +14,4 @@ class FeatureViewSet(viewsets.ModelViewSet):
 
     queryset = Feature.objects.all()
     serializer_class = FeatureSerializer
+    pagination_class = None

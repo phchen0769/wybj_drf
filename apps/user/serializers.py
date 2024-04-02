@@ -266,13 +266,13 @@ class UserInfoSerializer(serializers.ModelSerializer):
     """
 
     # 获取用户角色
-    # role = RoleSerializer(many=True, read_only=True)
+    role = RoleSerializer(many=True, read_only=True)
     # 获取用户路由
     routers = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ("username", "email", "avatar", "routers")
+        fields = ("username", "email", "avatar", "routers", "role")
 
     # 获取用户的菜单
     def get_routers(self, obj):

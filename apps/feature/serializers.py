@@ -3,6 +3,8 @@ from .models import Feature
 
 
 class FeatureSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Feature
-        fields = "__all__"
+        fields = "id", "title", "percentage", "content", "add_time"
