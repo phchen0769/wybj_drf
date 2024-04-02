@@ -142,7 +142,8 @@ class CurrentUserViewSet(
     用户注册、更新、获取用户信息
     """
 
-    serializer_class = EmailUserRegSerializer
+    # serializer_class = EmailUserRegSerializer
+    serializer_class = UserInfoSerializer
     queryset = User.objects.all()
     authentication_classes = (
         JWTAuthentication,
@@ -151,7 +152,7 @@ class CurrentUserViewSet(
 
     # get方法的序列化器
     def get_serializer_class(self):
-        if self.action == "retrieve":
+        if self.action == "retrieve" or "get":
             return UserDetailSerializer
         elif self.action == "create":
             return EmailUserRegSerializer
@@ -164,6 +165,9 @@ class CurrentUserViewSet(
     def get_permissions(self):
         if self.action == "retrieve":
             return [permissions.IsAuthenticated()]
+        elif self.action == "get":
+            # 管理员才可以看到所有用户
+            return [permissions.IsAdminUser()]
         elif self.action == "create":
             return []
 
@@ -229,13 +233,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserInfoSerializer
-    authentication_classes = (
-        JWTAuthentication,
-        authentication.SessionAuthentication,
-    )
-    pagination_class = None
 
-    # @action(detail=False, methods=["get"])
-    # def me(self, request):
-    #     serializer = self.get_serializer(request.user)
-    #     return Response(serializer.data)
+    @action(detail=False, methods=["get"])
+    def me(self, request):
+        serializer = self.get_serializer(request.user)
+        return Response(serializer.data)

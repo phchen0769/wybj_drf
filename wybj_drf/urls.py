@@ -61,13 +61,13 @@ from apps.feature.views import FeatureViewSet
 router = SimpleRouter(trailing_slash=False)
 
 # user app的url配置
-router.register("users", UserViewSet, basename="users")
 router.register("sms", SmsCodeViewSet, basename="sms")
 router.register("email", EmailCodeViewSet, basename="email")
 router.register("permissions", PermissionViewSet, basename="permissions")
 router.register("roles", RoleViewSet, basename="roles")
 router.register("routers", RouterViewSet, basename="routers")
-router.register("userinfo", CurrentUserViewSet, basename="userinfo")
+router.register("users", CurrentUserViewSet, basename="users")
+router.register("userinfo", UserViewSet, basename="userinfo")
 # router.register("register", CurrentUserViewSet, basename="register")
 
 # score app的url配置
