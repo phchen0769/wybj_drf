@@ -134,6 +134,9 @@ class UserProfile(AbstractUser):
     birthday = models.DateField(
         null=True, blank=True, verbose_name="生日", help_text="生日"
     )
+    address = models.CharField(
+        null=True, max_length=50, verbose_name="家庭地址", help_text="家庭地址"
+    )
     mobile = models.CharField(max_length=11, verbose_name="手机", help_text="手机")
     gender = models.CharField(
         max_length=6,
