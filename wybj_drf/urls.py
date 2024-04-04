@@ -68,6 +68,7 @@ router.register("roles", RoleViewSet, basename="roles")
 router.register("routers", RouterViewSet, basename="routers")
 router.register("users", CurrentUserViewSet, basename="users")
 router.register("userinfo", UserViewSet, basename="userinfo")
+# router.register("user-role", UserViewSet, basename="user-role")
 # router.register("register", CurrentUserViewSet, basename="register")
 
 # score app的url配置

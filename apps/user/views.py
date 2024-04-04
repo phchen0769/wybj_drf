@@ -19,6 +19,7 @@ from rest_framework import authentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 from wybj_drf.settings import DEFAULT_FROM_EMAIL
+from rest_framework_bulk import BulkModelViewSet
 
 from rest_framework.decorators import action
 
@@ -238,3 +239,17 @@ class UserViewSet(viewsets.ModelViewSet):
     def me(self, request):
         serializer = self.get_serializer(request.user)
         return Response(serializer.data)
+
+
+# class UserRoleViewSet(viewsets.ModelViewSet):
+#     """
+#     用户角色
+#     """
+
+#     queryset = User.objects.all()
+#     serializer_class = UserRoleSerializer
+
+#     @action(detail=False, methods=["get"])
+#     def me(self, request):
+#         serializer = self.get_serializer(request.user)
+#         return Response(serializer.data)

@@ -73,7 +73,7 @@ class CustomPermission(BasePermission):
                 else:
                     permission_dict[permission.name] = list(method_list)
 
-        print(permission_dict)
+        # print(permission_dict)
 
         # 2.当前用户正在访问的URL和方式
         print(request.resolver_match.url_name, request.method)

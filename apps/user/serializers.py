@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from datetime import datetime
 from datetime import timedelta
 from rest_framework.validators import UniqueValidator
+from rest_framework_bulk import BulkSerializerMixin
 
 from .models import SmsVerifyCode, EmailVerifyCode, Role, Permission, Router
 
@@ -260,13 +261,14 @@ class RouterSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class UserInfoSerializer(serializers.ModelSerializer):
+class UserInfoSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     """
     用户信息序列化类
     """
 
-    # 获取用户角色
-    role = RoleSerializer(many=True, read_only=True)
+    # 获取用户角色id
+    role = serializers.PrimaryKeyRelatedField(many=True, queryset=Role.objects.all())
+
     # 获取用户路由
     routers = serializers.SerializerMethodField()
 
@@ -289,3 +291,35 @@ class UserInfoSerializer(serializers.ModelSerializer):
         # 获取用户的菜单并去重
         routers = obj.get_routers().distinct()
         return RouterSerializer(routers, many=True).data
+
+    # 重写update方法，处理多对多关系
+    def update(self, instance, validated_data):
+        # 使用父类的update方法处理其他字段
+        instance = super().update(instance, validated_data)
+
+        # 更新role字段
+        roles_data = set(validated_data.pop("role", []))
+        current_roles = set(instance.role.all())
+
+        # 找出需要删除的角色
+        roles_to_remove = current_roles - roles_data
+
+        # 删除需要删除的角色
+        for role in roles_to_remove:
+            instance.role.remove(role)
+
+        # 添加新的角色
+        for role in roles_data:
+            instance.role.add(role)
+
+        return instance
+
+
+# class UserRoleSerializer(serializers.ModelSerializer):
+#     """
+#     用户角色序列化类
+#     """
+
+#     class Meta:
+#         model = User
+#         fields = ("id", "role")
