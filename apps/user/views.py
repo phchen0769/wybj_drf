@@ -19,7 +19,8 @@ from rest_framework import authentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 from wybj_drf.settings import DEFAULT_FROM_EMAIL
-from rest_framework_bulk import BulkModelViewSet
+
+# from rest_framework_bulk import BulkModelViewSet
 
 from rest_framework.decorators import action
 

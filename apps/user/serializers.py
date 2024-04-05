@@ -6,7 +6,9 @@ from django.contrib.auth import get_user_model
 from datetime import datetime
 from datetime import timedelta
 from rest_framework.validators import UniqueValidator
-from rest_framework_bulk import BulkSerializerMixin
+
+# 处理大量数据时使用
+# from rest_framework_bulk import BulkSerializerMixin
 
 from .models import SmsVerifyCode, EmailVerifyCode, Role, Permission, Router
 
@@ -238,7 +240,7 @@ class RoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Role
-        fields = "__all__"
+        fields = "id", "name"
 
 
 # class GroupSerializer(serializers.ModelSerializer):
@@ -261,13 +263,25 @@ class RouterSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class UserInfoSerializer(BulkSerializerMixin, serializers.ModelSerializer):
+# 为用户信息提供name字段
+class RoleField(serializers.RelatedField):
+    def to_representation(self, value):
+        return {"id": value.id, "name": value.name}
+
+    def to_internal_value(self, data):
+        if not isinstance(data, dict) or "id" not in data:
+            raise serializers.ValidationError("Invalid format for role data")
+        return Role.objects.get(id=data["id"])
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
     """
     用户信息序列化类
     """
 
     # 获取用户角色id
-    role = serializers.PrimaryKeyRelatedField(many=True, queryset=Role.objects.all())
+    # role = serializers.PrimaryKeyRelatedField(many=True, queryset=Role.objects.all())
+    role = RoleField(many=True, queryset=Role.objects.all())
 
     # 获取用户路由
     routers = serializers.SerializerMethodField()
@@ -299,6 +313,7 @@ class UserInfoSerializer(BulkSerializerMixin, serializers.ModelSerializer):
 
         # 更新role字段
         roles_data = set(validated_data.pop("role", []))
+
         current_roles = set(instance.role.all())
 
         # 找出需要删除的角色
