@@ -60,20 +60,12 @@ class Permission(models.Model):
     权限
     """
 
-    METHOD_TYPE = (
-        (1, "GET"),
-        (2, "POST"),
-        (3, "DELETE"),
-        (4, "PUT"),
-        (5, "PATCH"),
-        (6, "OPTIONS"),
-    )
     # URL别名
     name = models.CharField(
         null=True, max_length=30, verbose_name="权限名称", help_text="权限名称"
     )
-    method_type = models.IntegerField(
-        choices=METHOD_TYPE, verbose_name="方法类型", help_text="方法类型"
+    method = models.CharField(
+        null=True, max_length=30, verbose_name="方法类型", help_text="方法类型"
     )
     router = models.ForeignKey(
         Router,

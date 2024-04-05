@@ -34,15 +34,6 @@ class CustomPermission(BasePermission):
         Return `True` if permission is granted, `False` otherwise.
         """
 
-        METHOD_TYPE = {
-            "GET": 1,
-            "POST": 2,
-            "DELETE": 3,
-            "PUT": 4,
-            "PATCH": 5,
-            "OPTIONS": 6,
-        }
-
         # 1、创建权限字典，以获取当前用户所有权限
         permission_dict = {}
 
@@ -61,7 +52,7 @@ class CustomPermission(BasePermission):
                 method_list = []
 
                 # 对每个权限获取其所有的方法，加入到方法列表中
-                method_list.append(permission.method_type)
+                method_list.append(permission.method)
 
                 # 把每个方法列表加入到权限字典中
                 if permission_dict.get(permission.name):
@@ -78,7 +69,6 @@ class CustomPermission(BasePermission):
         # 2.当前用户正在访问的URL和方式
         print(request.resolver_match.url_name, request.method)
         url_name = request.resolver_match.url_name
-        method = METHOD_TYPE.get(request.method)
 
         # print(url_name, method)
 
@@ -86,7 +76,7 @@ class CustomPermission(BasePermission):
         method_list = permission_dict.get(url_name)
         if not method_list:
             return False
-        if method in method_list:
+        if request.method in method_list:
             return True
         return False
 

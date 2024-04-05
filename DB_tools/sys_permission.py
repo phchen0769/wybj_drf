@@ -5,153 +5,153 @@
 permission_datas = [
     {
         "name": "users-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 2003,
     },
     {
         "name": "users-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 2003,
     },
     {
         "name": "userinfo-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 2001,
     },
     {
         "name": "userinfo-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 2002,
     },
     # 角色管理数据
     {
         "name": "roles-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 2004,
     },
     {
         "name": "roles-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 2004,
     },
     # 权限管理数据
     {
         "name": "permissions-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 2005,
     },
     {
         "name": "permissions-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 2005,
     },
     # 业务
     {
         "name": "articles-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 3001,
     },
     {
         "name": "articles-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 3002,
     },
     {
         "name": "chapters-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 3003,
     },
     {
         "name": "chapters-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 3003,
     },
     {
         "name": "features-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 3003,
     },
     {
         "name": "features-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 3003,
     },
     {
         "name": "students-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 1000,
     },
     {
         "name": "students-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 1000,
     },
     {
         "name": "answers-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 1000,
     },
     {
         "name": "answers-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 1000,
     },
     {
         "name": "questions-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 1000,
     },
     {
         "name": "questions-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 1000,
     },
     {
         "name": "papers-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 1000,
     },
     {
         "name": "papers-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 1000,
     },
-    {"name": "sms-list", "method_type": [1, 2], "router_id": 1000},
+    {"name": "sms-list", "method_type": ["GET", "POST"], "router_id": 1000},
     {
         "name": "sms-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 1000,
     },
     {
         "name": "email-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 1000,
     },
     {
         "name": "email-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 1000,
     },
     # 路由管理
     {
         "name": "routers-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 1000,
     },
     {
         "name": "routers-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 1000,
     },
     # 用户组管理数据
     {
         "name": "group-list",
-        "method_type": [1, 2],
+        "method_type": ["GET", "POST"],
         "router_id": 1000,
     },
     {
         "name": "group-detail",
-        "method_type": [1, 3, 4, 5, 6],
+        "method_type": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
         "router_id": 1000,
     },
     {

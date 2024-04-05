@@ -221,11 +221,11 @@ class RoleViewSet(viewsets.ModelViewSet):
 
 class RouterViewSet(viewsets.ModelViewSet):
     """
-    菜单
+    路由
     """
 
     queryset = Router.objects.all()
-    serializer_class = Router
+    serializer_class = RouterSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
