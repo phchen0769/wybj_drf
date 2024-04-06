@@ -49,9 +49,9 @@ def import_permission():
     # 1.遍历权限名称
     for permission in permission_datas:
         # 遍历方法名
-        for method in permission["method_type"]:
+        for temp in permission["method"]:
             Permission.objects.create(
-                method_type=method,
+                method=temp,
                 name=permission["name"],
                 router_id=permission["router_id"],
             )

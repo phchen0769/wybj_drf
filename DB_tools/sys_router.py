@@ -5,11 +5,21 @@ router_datas = [
     {
         "router_id": 1000,
         "sub_router": None,
-        "path": "/profile",
+        "path": "/system",
         "component": "layout",
         "redirect": None,
         "name": "system",
         "title": "system",
+        "icon": "user",
+    },
+    {
+        "router_id": 1001,
+        "sub_router": 1000,
+        "path": "/user/manage",
+        "component": "user-manage",
+        "redirect": None,
+        "name": "sysmanage",
+        "title": "sysmanage",
         "icon": "user",
     },
     {

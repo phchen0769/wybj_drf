@@ -3,7 +3,7 @@ from DB_tools.sys_permission import permission_datas
 # 计算出所有权限的数量
 all_permission = 0
 for permission_data in permission_datas:
-    all_permission += permission_data["method_type"].__len__()
+    all_permission += permission_data["method"].__len__()
 
 role_permission_datas = [
     {

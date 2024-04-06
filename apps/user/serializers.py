@@ -223,16 +223,6 @@ class EmailUserRegSerializer(serializers.ModelSerializer):
         fields = ("username", "code", "email", "password")
 
 
-class PermissionSerializer(serializers.ModelSerializer):
-    """
-    权限序列化类
-    """
-
-    class Meta:
-        model = Permission
-        fields = "__all__"
-
-
 class RoleSerializer(serializers.ModelSerializer):
     """
     角色序列化类
@@ -263,6 +253,19 @@ class RouterSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class PermissionSerializer(serializers.ModelSerializer):
+    """
+    权限序列化类
+    """
+
+    # 权限路由
+    router = RouterSerializer()
+
+    class Meta:
+        model = Permission
+        fields = "id", "name", "method", "router"
+
+
 # 为用户信息提供name字段
 class RoleField(serializers.RelatedField):
     def to_representation(self, value):
@@ -280,7 +283,6 @@ class UserInfoSerializer(serializers.ModelSerializer):
     """
 
     # 获取用户角色id
-    # role = serializers.PrimaryKeyRelatedField(many=True, queryset=Role.objects.all())
     role = RoleField(many=True, queryset=Role.objects.all())
 
     # 获取用户路由
