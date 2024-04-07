@@ -259,11 +259,26 @@ class PermissionSerializer(serializers.ModelSerializer):
     """
 
     # 权限路由
-    router = RouterSerializer()
+    # router = RouterSerializer()
 
     class Meta:
         model = Permission
-        fields = "id", "name", "method", "router"
+        # fields = "id", "name", "method", "router"
+        fields = "__all__"
+
+
+class PermissionSerializer(serializers.ModelSerializer):
+    """
+    权限序列化类
+    """
+
+    # 权限路由
+    # router = RouterSerializer()
+
+    class Meta:
+        model = Permission
+        # fields = "id", "name", "method", "router"
+        fields = "__all__"
 
 
 # 为用户信息提供name字段

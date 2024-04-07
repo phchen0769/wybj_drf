@@ -12,10 +12,10 @@ role_permission_datas = [
     },
     {
         "role_id": 2,
-        "permission_id": list(range(1, 34)),
+        "permission_id": list(range(1, 44)),
     },
     {
         "role_id": 3,
-        "permission_id": list(range(1, 12)),
+        "permission_id": [1, 2, 3, 4, 5, 6, 7, 29, 36, 43],
     },
 ]

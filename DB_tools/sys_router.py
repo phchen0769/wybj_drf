@@ -3,26 +3,6 @@
 
 router_datas = [
     {
-        "router_id": 1000,
-        "sub_router": None,
-        "path": "/system",
-        "component": "layout",
-        "redirect": None,
-        "name": "system",
-        "title": "system",
-        "icon": "user",
-    },
-    {
-        "router_id": 1001,
-        "sub_router": 1000,
-        "path": "/user/manage",
-        "component": "user-manage",
-        "redirect": None,
-        "name": "sysmanage",
-        "title": "sysmanage",
-        "icon": "user",
-    },
-    {
         "router_id": 2000,
         "sub_router": None,
         "path": "/user",
@@ -43,7 +23,7 @@ router_datas = [
         "icon": "personnel-manage",
     },
     {
-        "router_id": 2002,
+        "router_id": 2001,
         "sub_router": 2000,
         "path": "/user/info/:id",
         "component": "user-info",
@@ -54,7 +34,7 @@ router_datas = [
         "icon": None,
     },
     {
-        "router_id": 2003,
+        "router_id": 2001,
         "sub_router": 2000,
         "path": "/user/import",
         "component": "import",
@@ -65,7 +45,7 @@ router_datas = [
         "icon": None,
     },
     {
-        "router_id": 2004,
+        "router_id": 2002,
         "sub_router": 2000,
         "path": "/user/role",
         "component": "role-list",
@@ -75,7 +55,7 @@ router_datas = [
         "icon": "role",
     },
     {
-        "router_id": 2005,
+        "router_id": 2003,
         "sub_router": 2000,
         "path": "/user/permission",
         "component": "permission-list",

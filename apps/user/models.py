@@ -69,6 +69,7 @@ class Permission(models.Model):
     )
     router = models.ForeignKey(
         Router,
+        null=True,
         on_delete=models.CASCADE,
         verbose_name="权限",
         help_text="权限",

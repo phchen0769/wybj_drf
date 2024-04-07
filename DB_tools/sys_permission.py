@@ -3,47 +3,49 @@
 
 
 permission_datas = [
-    {
-        "name": "users-list",
-        "method": ["GET", "POST"],
-        "router_id": 2003,
-    },
-    {
-        "name": "users-detail",
-        "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 2003,
-    },
+    # 获取个人用户信息
     {
         "name": "userinfo-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 2001,
+        "router_id": "",
     },
     {
         "name": "userinfo-list",
         "method": ["GET", "POST"],
-        "router_id": 2002,
+        "router_id": "",
+    },
+    # 用户管理权限
+    {
+        "name": "users-list",
+        "method": ["GET", "POST"],
+        "router_id": 2001,
+    },
+    {
+        "name": "users-detail",
+        "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
+        "router_id": 2001,
     },
     # 角色管理数据
     {
         "name": "roles-list",
         "method": ["GET", "POST"],
-        "router_id": 2004,
+        "router_id": 2002,
     },
     {
         "name": "roles-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 2004,
+        "router_id": 2002,
     },
     # 权限管理数据
     {
         "name": "permissions-list",
         "method": ["GET", "POST"],
-        "router_id": 2005,
+        "router_id": 2003,
     },
     {
         "name": "permissions-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 2005,
+        "router_id": 2003,
     },
     # 业务
     {
@@ -79,104 +81,104 @@ permission_datas = [
     {
         "name": "students-list",
         "method": ["GET", "POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "students-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "answers-list",
         "method": ["GET", "POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "answers-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "questions-list",
         "method": ["GET", "POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "questions-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "papers-list",
         "method": ["GET", "POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "papers-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
-    {"name": "sms-list", "method": ["GET", "POST"], "router_id": 1001},
+    {"name": "sms-list", "method": ["GET", "POST"], "router_id": ""},
     {
         "name": "sms-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "email-list",
         "method": ["GET", "POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "email-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     # 路由管理
     {
         "name": "routers-list",
         "method": ["GET", "POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "routers-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     # 用户组管理数据
     {
         "name": "group-list",
         "method": ["GET", "POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "group-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "api-root",
         "method": ["GET", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "docs-index",
         "method": ["GET", "OPTIONS"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "token_obtain_pair",
         "method": ["POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "token_refresh",
         "method": ["POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
     {
         "name": "token_verify",
         "method": ["POST"],
-        "router_id": 1001,
+        "router_id": "",
     },
 ]

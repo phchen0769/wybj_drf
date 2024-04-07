@@ -138,14 +138,15 @@ class CurrentUserViewSet(
     CreateModelMixin,
     mixins.UpdateModelMixin,
     mixins.RetrieveModelMixin,
+    mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
     """
     用户注册、更新、获取用户信息
     """
 
-    # serializer_class = EmailUserRegSerializer
-    serializer_class = UserInfoSerializer
+    serializer_class = EmailUserRegSerializer
+    # serializer_class = UserInfoSerializer
     queryset = User.objects.all()
     authentication_classes = (
         JWTAuthentication,
@@ -155,11 +156,11 @@ class CurrentUserViewSet(
     # get方法的序列化器
     def get_serializer_class(self):
         if self.action == "retrieve" or "get":
-            return UserDetailSerializer
+            return UserInfoSerializer
         elif self.action == "create":
             return EmailUserRegSerializer
 
-        return UserDetailSerializer
+        return UserInfoSerializer
 
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -240,6 +241,9 @@ class UserViewSet(viewsets.ModelViewSet):
     def me(self, request):
         serializer = self.get_serializer(request.user)
         return Response(serializer.data)
+
+    # def get_object(self):
+    #     return self.request.user
 
 
 # class UserRoleViewSet(viewsets.ModelViewSet):
