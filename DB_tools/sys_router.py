@@ -23,7 +23,7 @@ router_datas = [
         "icon": "personnel-manage",
     },
     {
-        "router_id": 2001,
+        "router_id": 2002,
         "sub_router": 2000,
         "path": "/user/info/:id",
         "component": "user-info",
@@ -34,7 +34,7 @@ router_datas = [
         "icon": None,
     },
     {
-        "router_id": 2001,
+        "router_id": 2003,
         "sub_router": 2000,
         "path": "/user/import",
         "component": "import",
@@ -45,7 +45,7 @@ router_datas = [
         "icon": None,
     },
     {
-        "router_id": 2002,
+        "router_id": 2004,
         "sub_router": 2000,
         "path": "/user/role",
         "component": "role-list",
@@ -55,7 +55,7 @@ router_datas = [
         "icon": "role",
     },
     {
-        "router_id": 2003,
+        "router_id": 2005,
         "sub_router": 2000,
         "path": "/user/permission",
         "component": "permission-list",

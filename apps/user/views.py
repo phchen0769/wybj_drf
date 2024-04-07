@@ -29,6 +29,7 @@ from .serializers import (
     EmailSerializer,
     EmailUserRegSerializer,
     UserDetailSerializer,
+    PermissionFieldSerializer,
     PermissionSerializer,
     RoleSerializer,
     RouterSerializer,
@@ -208,7 +209,13 @@ class PermissionViewSet(viewsets.ModelViewSet):
     """
 
     queryset = Permission.objects.all()
-    serializer_class = PermissionSerializer
+    # serializer_class = PermissionSerializer
+
+    # get方法的序列化器
+    def get_serializer_class(self):
+        if self.action in ["retrieve", "list"]:
+            return PermissionFieldSerializer
+        return PermissionSerializer
 
 
 class RoleViewSet(viewsets.ModelViewSet):

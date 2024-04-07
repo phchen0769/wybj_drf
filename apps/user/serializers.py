@@ -258,30 +258,25 @@ class PermissionSerializer(serializers.ModelSerializer):
     权限序列化类
     """
 
-    # 权限路由
-    # router = RouterSerializer()
-
     class Meta:
         model = Permission
-        # fields = "id", "name", "method", "router"
         fields = "__all__"
 
 
-class PermissionSerializer(serializers.ModelSerializer):
+class PermissionFieldSerializer(serializers.ModelSerializer):
     """
-    权限序列化类
+    权限字段序列化类
     """
 
     # 权限路由
-    # router = RouterSerializer()
+    router = RouterSerializer()
 
     class Meta:
         model = Permission
-        # fields = "id", "name", "method", "router"
-        fields = "__all__"
+        fields = "id", "name", "method", "router"
 
 
-# 为用户信息提供name字段
+# 为用户信息提供name字段(多对多)
 class RoleField(serializers.RelatedField):
     def to_representation(self, value):
         return {"id": value.id, "name": value.name}

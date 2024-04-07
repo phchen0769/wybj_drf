@@ -29,23 +29,23 @@ permission_datas = [
     {
         "name": "roles-list",
         "method": ["GET", "POST"],
-        "router_id": 2002,
+        "router_id": 2004,
     },
     {
         "name": "roles-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 2002,
+        "router_id": 2004,
     },
     # 权限管理数据
     {
         "name": "permissions-list",
         "method": ["GET", "POST"],
-        "router_id": 2003,
+        "router_id": 2005,
     },
     {
         "name": "permissions-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 2003,
+        "router_id": 2005,
     },
     # 业务
     {
