@@ -67,6 +67,9 @@ class Permission(models.Model):
     method = models.CharField(
         null=True, max_length=30, verbose_name="方法类型", help_text="方法类型"
     )
+    desc = models.CharField(
+        null=True, max_length=300, verbose_name="描述", help_text="描述"
+    )
     router = models.ForeignKey(
         Router,
         null=True,

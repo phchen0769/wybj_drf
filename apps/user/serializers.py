@@ -320,7 +320,7 @@ class PermissionFieldSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Permission
-        fields = "id", "name", "method", "router"
+        fields = "id", "name", "method", "router", "desc"
 
 
 # 为用户信息提供name字段(多对多)

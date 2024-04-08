@@ -57,6 +57,7 @@ def import_permission():
                 method=temp,
                 name=permission["name"],
                 router_id=permission["router_id"],
+                desc=permission["desc"],
             )
 
 
