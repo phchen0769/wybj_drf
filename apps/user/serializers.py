@@ -223,14 +223,61 @@ class EmailUserRegSerializer(serializers.ModelSerializer):
         fields = ("username", "code", "email", "password")
 
 
+# 为角色信息提供name字段(多对多)
+class PermissionField(serializers.RelatedField):
+    def to_representation(self, value):
+        return {"id": value.id, "name": value.name, "method": value.method}
+
+    def to_internal_value(self, data):
+        if not isinstance(data, dict) or "id" not in data:
+            raise serializers.ValidationError("Invalid format for role data")
+        return Permission.objects.get(id=data["id"])
+
+
 class RoleSerializer(serializers.ModelSerializer):
     """
-    角色序列化类
+    角色-权限序列化类
     """
+
+    # 获取用户角色id
+    permission = PermissionField(many=True, queryset=Role.objects.all())
 
     class Meta:
         model = Role
-        fields = "id", "name"
+        fields = "id", "name", "desc", "permission"
+
+    # 重写update方法，处理role多对多关系
+    def update(self, instance, validated_data):
+        # 使用父类的update方法处理其他字段
+        instance = super().update(instance, validated_data)
+
+        # 更新permission字段
+        permissions_data = set(validated_data.pop("permission", []))
+
+        current_permissions = set(instance.permission.all())
+
+        # 找出需要删除的角色
+        permissions_to_remove = current_permissions - permissions_data
+
+        # 删除需要删除的角色
+        for permisson in permissions_to_remove:
+            instance.permission.remove(permission)
+
+        # 添加新的角色
+        for permission in permissions_data:
+            instance.role.add(permission)
+
+        return instance
+
+
+# class RoleSerializer(serializers.ModelSerializer):
+#     """
+#     普通角色序列化类
+#     """
+
+#     class Meta:
+#         model = Role
+#         fields = "__all__"
 
 
 # class GroupSerializer(serializers.ModelSerializer):
@@ -318,7 +365,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
         routers = obj.get_routers().distinct()
         return RouterSerializer(routers, many=True).data
 
-    # 重写update方法，处理多对多关系
+    # 重写update方法，处理role多对多关系
     def update(self, instance, validated_data):
         # 使用父类的update方法处理其他字段
         instance = super().update(instance, validated_data)

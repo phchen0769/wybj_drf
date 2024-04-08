@@ -17,6 +17,9 @@ from DB_tools.sys_permission import permission_datas
 # 导入角色数据
 from DB_tools.sys_role import role_datas
 
+# 导入用户数据
+from DB_tools.sys_user import user_datas
+
 # 导入角色权限数据
 from DB_tools.sys_role_permission import role_permission_datas
 
@@ -57,11 +60,28 @@ def import_permission():
             )
 
 
+# 导入用户数据
+def import_user():
+    for user in user_datas:
+        UserProfile.objects.create(
+            id=user["id"],
+            username=user["username"],
+            password=user["password"],
+            email=user["email"],
+            mobile=user["mobile"],
+            # is_active=user["is_active"],
+            # is_staff=user["is_staff"],
+            # is_superuser=user["is_superuser"],
+        )
+
+
 # 导入角色数据
 def import_role():
     for role in role_datas:
         Role.objects.create(
+            id=role["id"],
             name=role["name"],
+            desc=role["desc"],
         )
 
 
@@ -93,6 +113,7 @@ if __name__ == "__main__":
     import_router()
     import_permission()
     import_role()
+    import_user()
     import_role_permission()
     import_user_role()
     print("sys导入成功")

@@ -91,6 +91,9 @@ class Role(models.Model):
     name = models.CharField(
         null=True, max_length=30, verbose_name="角色名称", help_text="角色名称"
     )
+    desc = models.CharField(
+        null=True, max_length=300, verbose_name="描述", help_text="描述"
+    )
     permission = models.ManyToManyField(
         Permission,
         verbose_name="权限",
