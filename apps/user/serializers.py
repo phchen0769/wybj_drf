@@ -226,7 +226,13 @@ class EmailUserRegSerializer(serializers.ModelSerializer):
 # 为角色信息提供name字段(多对多)
 class PermissionField(serializers.RelatedField):
     def to_representation(self, value):
-        return {"id": value.id, "name": value.name, "method": value.method}
+        return {
+            "id": value.id,
+            "name": value.name,
+            "method": value.method,
+            "desc": value.desc,
+            "router": value.router_id,
+        }
 
     def to_internal_value(self, data):
         if not isinstance(data, dict) or "id" not in data:
@@ -260,12 +266,12 @@ class RoleSerializer(serializers.ModelSerializer):
         permissions_to_remove = current_permissions - permissions_data
 
         # 删除需要删除的角色
-        for permisson in permissions_to_remove:
+        for permission in permissions_to_remove:
             instance.permission.remove(permission)
 
         # 添加新的角色
         for permission in permissions_data:
-            instance.role.add(permission)
+            instance.permission.add(permission)
 
         return instance
 
@@ -320,7 +326,13 @@ class PermissionFieldSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Permission
-        fields = "id", "name", "method", "router", "desc"
+        fields = (
+            "id",
+            "name",
+            "method",
+            "desc",
+            "router",
+        )
 
 
 # 为用户信息提供name字段(多对多)
