@@ -58,15 +58,33 @@ permission_datas = [
     # 业务
     {
         "name": "articles-list",
-        "method": ["GET", "POST"],
+        "method": ["GET"],
         "router_id": 3001,
-        "desc": "文章管理权限",
+        "desc": "文章列表",
     },
     {
         "name": "articles-detail",
-        "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
+        "method": ["GET"],
         "router_id": 3002,
-        "desc": "文章管理权限",
+        "desc": "文章详情",
+    },
+    {
+        "name": "articles-list",
+        "method": ["POST"],
+        "router_id": 3003,
+        "desc": "创建文章",
+    },
+    {
+        "name": "articles-detail",
+        "method": ["PATCH"],
+        "router_id": 3004,
+        "desc": "更新文章",
+    },
+    {
+        "name": "articles-detail",
+        "method": ["DELETE"],
+        "router_id": 3001,
+        "desc": "删除文章",
     },
     {
         "name": "chapters-list",

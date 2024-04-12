@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from django.db import models
 
 from apps.user.models import UserProfile
@@ -13,6 +13,7 @@ class Article(models.Model):
     ranking = models.IntegerField(default=0, verbose_name="排名", help_text="排名")
     author = models.ForeignKey(
         UserProfile,
+        null=True,
         on_delete=models.CASCADE,
         related_name="author",
         verbose_name="作者",
@@ -27,7 +28,11 @@ class Article(models.Model):
     content = models.CharField(
         null=True, max_length=300, verbose_name="文章内容", help_text="文章内容"
     )
-    public_date = models.DateTimeField(default=datetime.now, verbose_name="发布时间")
+    public_date = models.DateField(
+        default=date.today,
+        verbose_name="添加时间",
+        help_text="添加时间",
+    )
 
     class Meta:
         app_label = "article"

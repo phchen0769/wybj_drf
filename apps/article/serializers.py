@@ -3,6 +3,8 @@ from .models import Article, Chapter
 
 
 class ArticleSerializer(serializers.ModelSerializer):
+    author = serializers.StringRelatedField()
+
     class Meta:
         model = Article
         fields = "__all__"
