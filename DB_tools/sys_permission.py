@@ -26,7 +26,7 @@ permission_datas = [
     {
         "name": "users-detail",
         "method": ["GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-        "router_id": 2001,
+        "router_id": 2002,
         "desc": "用户管理权限",
     },
     # 角色管理数据
