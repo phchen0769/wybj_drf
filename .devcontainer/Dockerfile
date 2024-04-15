@@ -34,14 +34,14 @@ RUN pip3 install --no-cache-dir -r /root/requirements.txt
 # 添加/root/.local/bin目录到环境变量
 # ENV PATH="/root/.local/bin:${PATH}"
 # 设置环境变量
-ENV DJANGO_SETTINGS_MODULE=wybj_drf.settings
-ENV PYTHONPATH=/workspaces/wybj_drf:$PYTHONPATH
+ENV DJANGO_SETTINGS_MODULE=remote_diagnosis_drf.settings
+ENV PYTHONPATH=/workspaces/remote_diagnosis_drf:$PYTHONPATH
 
 # RUN  rm -r /root/.cache
 
 # copy all the configfiles
 COPY default.conf /etc/nginx/http.d/default.conf
-COPY wybj.ini /etc/supervisor.d/
+COPY remote_diagnosis_drf.ini /etc/supervisor.d/
 # xadmin针对python3.10的cache源文件修改
 # COPY cache.py /usr/lib/python3.10/site-packages/django/views/decorators/cache.py
 
